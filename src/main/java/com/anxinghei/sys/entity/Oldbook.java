@@ -12,8 +12,8 @@ import javax.persistence.*;
  * @email 
  * @date 2020-03-10 20:31:52
  */
-@Table(name = "book")
-public class Book implements Serializable {
+@Table(name = "oldbook")
+public class Oldbook implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	    //

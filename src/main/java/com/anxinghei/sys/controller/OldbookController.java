@@ -1,16 +1,16 @@
 package com.anxinghei.sys.controller;
 
 //import com.github.wxiaoqi.security.common.rest.BaseController;
-//import com.anxinghei.sys.biz.BookBiz;
-import com.anxinghei.sys.entity.Book;
+//import com.anxinghei.sys.biz.OldbookBiz;
+import com.anxinghei.sys.entity.Oldbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// extends BaseController<BookBiz,Book>
+// extends BaseController<OldbookBiz,Oldbook>
 
 @RestController
-@RequestMapping("book")
-public class BookController  {
+@RequestMapping("oldbook")
+public class OldbookController  {
 
 }

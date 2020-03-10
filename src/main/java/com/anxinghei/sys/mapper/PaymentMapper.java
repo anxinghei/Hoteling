@@ -1,18 +1,17 @@
 package com.anxinghei.sys.mapper;
 
-
-import com.anxinghei.sys.entity.Book;
+import com.anxinghei.sys.entity.Payment;
 
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- * 订单表
+ * 支付表，收账记录
  * 
  * @author Autumn
  * @email 
  * @date 2020-03-10 20:31:52
  */
 @org.apache.ibatis.annotations.Mapper
-public interface BookMapper extends Mapper<Book> {
+public interface PaymentMapper extends Mapper<Payment> {
 	
 }

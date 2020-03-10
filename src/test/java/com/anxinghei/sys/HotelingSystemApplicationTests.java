@@ -19,8 +19,7 @@ class HotelingSystemApplicationTests {
 	
 	@Test
 	void contextLoads() {
-		Book book=bookMapper.selectByPrimaryKey(1);
-		System.out.println(book.getName());
+
 		
 	}
 
