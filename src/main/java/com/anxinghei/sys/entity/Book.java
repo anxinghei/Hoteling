@@ -113,4 +113,10 @@ public class Book implements Serializable {
 	public Integer getEndday() {
 		return endday;
 	}
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", roomid=" + roomid + ", guestid=" + guestid + ", customerid=" + customerid
+				+ ", startday=" + startday + ", endday=" + endday + "]";
+	}
+	
 }

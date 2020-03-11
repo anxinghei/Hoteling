@@ -32,10 +32,6 @@ public class Guest implements Serializable {
     @Column(name = "phone")
     private String phone;
 	
-	    //客人房间号
-    @Column(name = "roomId")
-    private Integer roomid;
-	
 
 	/**
 	 * 设置：
@@ -84,17 +80,5 @@ public class Guest implements Serializable {
 	 */
 	public String getPhone() {
 		return phone;
-	}
-	/**
-	 * 设置：客人房间号
-	 */
-	public void setRoomid(Integer roomid) {
-		this.roomid = roomid;
-	}
-	/**
-	 * 获取：客人房间号
-	 */
-	public Integer getRoomid() {
-		return roomid;
 	}
 }

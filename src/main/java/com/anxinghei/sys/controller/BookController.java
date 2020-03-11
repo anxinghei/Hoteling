@@ -4,6 +4,8 @@ package com.anxinghei.sys.controller;
 //import com.anxinghei.sys.biz.BookBiz;
 import com.anxinghei.sys.entity.Book;
 import com.anxinghei.sys.mapper.BookMapper;
+import com.anxinghei.sys.mapper.BookVoMapper;
+import com.anxinghei.sys.vo.BookVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -14,6 +16,8 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.P
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,16 +26,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("book")
 public class BookController  {
-	
+
 	@Autowired
 	private BookMapper bookMapper;
+	@Autowired
+	private BookVoMapper bookVoMapper;
 	
 	@GetMapping("findAll/{start}/{size}")
-	PageInfo<Book> findAll(@PathVariable("start") Integer start,@PathVariable("size") Integer size){
+	PageInfo<BookVo> findAll(@PathVariable("start") Integer start,@PathVariable("size") Integer size){
 		PageHelper.startPage(start,size);
-		List<Book> books=bookMapper.selectAll();
-		PageInfo<Book> pageInfo=new PageInfo<Book>(books);
+		List<BookVo> bookVo=bookVoMapper.findAll();
+		PageInfo<BookVo> pageInfo=new PageInfo<BookVo>(bookVo);	
 		return pageInfo;
+	}
+	
+	@GetMapping("findById/{id}")
+	BookVo findById(@PathVariable("id")Integer bookId) {
+		return bookVoMapper.selectByroomid(bookId);
+	}
+	
+	@PutMapping("update")
+	String update(@RequestBody BookVo bookVo) {
+		Book book=bookMapper.selectByPrimaryKey(bookVo.getBookid());
+		book.setRoomid(bookVo.getRoomid());
+		book.setEndday(bookVo.getEndday());
+		int isUpdated=bookMapper.updateByPrimaryKey(book);
+		if (isUpdated!=0) {
+			return "success";
+		}
+		return "error";
 	}
 
 }
