@@ -113,4 +113,12 @@ public class Oldbook implements Serializable {
 	public Integer getEndday() {
 		return endday;
 	}
+	public Oldbook(Integer roomid, Integer guestid, Integer customerid, String startday, Integer endday) {
+		super();
+		this.roomid = roomid;
+		this.guestid = guestid;
+		this.customerid = customerid;
+		this.startday = startday;
+		this.endday = endday;
+	}
 }
