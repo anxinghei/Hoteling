@@ -15,8 +15,12 @@ public class DateUtils {
         return df.format(new Date());
     }
     
-    public boolean isBand(int startday,int endday) {
-    	return true;
+    public static boolean isBand(String startday,String endday) {
+    	String date=getDataforBand();
+    	if (date.compareTo(startday)>=0 && date.compareTo(endday)<=0) {
+			return true;
+		}
+    	return false;
     }
     
 }

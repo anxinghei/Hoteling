@@ -12,8 +12,6 @@ public class BookVo {
 	private String endday;
 	private Integer roomtype;
 	
-
-
 	public Integer getRoomtype() {
 		return roomtype;
 	}
@@ -62,7 +60,6 @@ public class BookVo {
 	public void setStartday(String startday) {
 		this.startday = startday;
 	}
-
 	public String getEndday() {
 		return endday;
 	}

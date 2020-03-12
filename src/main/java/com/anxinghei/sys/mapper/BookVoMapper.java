@@ -17,6 +17,6 @@ public interface BookVoMapper{
 	public List<BookVo> findAll();
 	
 	@Select("select book.id as bookid,roomNum,guest.name as guestname, guest.phone as guestphone,startday,endday "
-			+ "from book join guest where book.id=#{id}")
+			+ "from book join guest on book.guestid=guest.id where book.id=#{id}")
 	public BookVo selectByroomid(int id);
 }

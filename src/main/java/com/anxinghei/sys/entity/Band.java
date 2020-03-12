@@ -30,11 +30,11 @@ public class Band implements Serializable {
 	
 	    //打折开始时间
     @Column(name = "startDay")
-    private String startday;
+    private Integer startday;
 	
 	    //打折结束时间
     @Column(name = "endDay")
-    private String endday;
+    private Integer endday;
 	
 	    //打折缘故
     @Column(name = "description")
@@ -77,18 +77,29 @@ public class Band implements Serializable {
 	public Integer getDiscount() {
 		return discount;
 	}
-
-	public String getStartday() {
-		return startday;
-	}
-	public void setStartday(String startday) {
+	/**
+	 * 设置：打折开始时间
+	 */
+	public void setStartday(Integer startday) {
 		this.startday = startday;
 	}
-	public String getEndday() {
-		return endday;
+	/**
+	 * 获取：打折开始时间
+	 */
+	public Integer getStartday() {
+		return startday;
 	}
-	public void setEndday(String endday) {
+	/**
+	 * 设置：打折结束时间
+	 */
+	public void setEndday(Integer endday) {
 		this.endday = endday;
+	}
+	/**
+	 * 获取：打折结束时间
+	 */
+	public Integer getEndday() {
+		return endday;
 	}
 	/**
 	 * 设置：打折缘故

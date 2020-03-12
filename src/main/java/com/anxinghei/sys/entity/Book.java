@@ -105,8 +105,8 @@ public class Book implements Serializable {
 	public String getEndday() {
 		return endday;
 	}
-	public void setEndday(String endday) {
-		this.endday = endday;
+	public void setEndday(String integer) {
+		this.endday = integer;
 	}
 	@Override
 	public String toString() {
