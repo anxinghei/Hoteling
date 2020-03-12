@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,7 @@ public class BookController  {
 	@PutMapping("update")
 	String update(@RequestBody BookVo bookVo) {
 		Book book=bookMapper.selectByPrimaryKey(bookVo.getBookid());
-		book.setRoomid(bookVo.getRoomid());
+		book.setRoomNum(bookVo.getRoomNum());
 		book.setEndday(bookVo.getEndday());
 		int isUpdated=bookMapper.updateByPrimaryKey(book);
 		if (isUpdated!=0) {
@@ -69,4 +70,9 @@ public class BookController  {
 		bookService.deleteById(bookid);
 	}
 
+	@PostMapping("save")
+	String addBook(@RequestBody BookVo vo) {
+		System.out.println(vo);
+		return "success";
+	}
 }

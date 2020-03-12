@@ -27,8 +27,19 @@ public class Room implements Serializable {
 	    //房间类别
     @Column(name = "typeId")
     private Integer typeid;
+    
+    @Column(name = "num")
+    private Integer num;
+    
+    
 	
 
+	public Integer getNum() {
+		return num;
+	}
+	public void setNum(Integer num) {
+		this.num = num;
+	}
 	/**
 	 * 设置：
 	 */

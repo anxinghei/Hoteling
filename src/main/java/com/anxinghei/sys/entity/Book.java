@@ -21,8 +21,8 @@ public class Book implements Serializable {
     private Integer id;
 	
 	    //房间号
-    @Column(name = "roomId")
-    private Integer roomid;
+    @Column(name = "roomNum")
+    private Integer roomNum;
 	
 	    //入住客人
     @Column(name = "guestId")
@@ -56,14 +56,14 @@ public class Book implements Serializable {
 	/**
 	 * 设置：房间号
 	 */
-	public void setRoomid(Integer roomid) {
-		this.roomid = roomid;
+	public void setRoomNum(Integer roomNum) {
+		this.roomNum = roomNum;
 	}
 	/**
 	 * 获取：房间号
 	 */
-	public Integer getRoomid() {
-		return roomid;
+	public Integer getRoomNum() {
+		return roomNum;
 	}
 	/**
 	 * 设置：入住客人
@@ -115,7 +115,7 @@ public class Book implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", roomid=" + roomid + ", guestid=" + guestid + ", customerid=" + customerid
+		return "Book [id=" + id + ", roomNum=" + roomNum + ", guestid=" + guestid + ", customerid=" + customerid
 				+ ", startday=" + startday + ", endday=" + endday + "]";
 	}
 	

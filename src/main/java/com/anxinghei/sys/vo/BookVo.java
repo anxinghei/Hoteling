@@ -3,42 +3,58 @@ package com.anxinghei.sys.vo;
 public class BookVo {
 	
 	private Integer bookid;
-	private Integer roomid;
+	private Integer roomNum;
+	private String customername;
+	private String customerphone;
 	private String guestname;
-	private Integer sex;
-	private String phone;
+	private String guestphone;
 	private String startday;
 	private Integer endday;
+	private Integer roomtype;
 	
+
+
+	public Integer getRoomtype() {
+		return roomtype;
+	}
+	public void setRoomtype(Integer roomtype) {
+		this.roomtype = roomtype;
+	}
+	public String getCustomername() {
+		return customername;
+	}
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+	public String getCustomerphone() {
+		return customerphone;
+	}
+	public void setCustomerphone(String customerphone) {
+		this.customerphone = customerphone;
+	}
+	public String getGuestphone() {
+		return guestphone;
+	}
+	public void setGuestphone(String guestphone) {
+		this.guestphone = guestphone;
+	}
 	public Integer getBookid() {
 		return bookid;
 	}
 	public void setBookid(Integer bookid) {
 		this.bookid = bookid;
 	}
-	public Integer getRoomid() {
-		return roomid;
+	public Integer getRoomNum() {
+		return roomNum;
 	}
-	public void setRoomid(Integer roomid) {
-		this.roomid = roomid;
+	public void setRoomNum(Integer roomNum) {
+		this.roomNum = roomNum;
 	}
 	public String getGuestname() {
 		return guestname;
 	}
 	public void setGuestname(String guestname) {
 		this.guestname = guestname;
-	}
-	public Integer getSex() {
-		return sex;
-	}
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 	public String getStartday() {
 		return startday;
@@ -51,6 +67,12 @@ public class BookVo {
 	}
 	public void setEndday(Integer endday) {
 		this.endday = endday;
+	}
+	@Override
+	public String toString() {
+		return "BookVo [bookid=" + bookid + ", roomNum=" + roomNum + ", customername=" + customername
+				+ ", customerphone=" + customerphone + ", guestname=" + guestname + ", guestphone=" + guestphone
+				+ ", startday=" + startday + ", endday=" + endday + "]";
 	}
 	
 }
