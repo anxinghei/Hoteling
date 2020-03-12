@@ -41,6 +41,14 @@ public class Book implements Serializable {
     private String endday;
 	
 
+	public Book(Integer roomNum, Integer guestid, Integer customerid, String startday, String endday) {
+		super();
+		this.roomNum = roomNum;
+		this.guestid = guestid;
+		this.customerid = customerid;
+		this.startday = startday;
+		this.endday = endday;
+	}
 	/**
 	 * 设置：
 	 */

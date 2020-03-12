@@ -17,8 +17,16 @@ public class BookVo {
 	private String endday;
 	// 房间名
 	private String roomtype;
+	// 房间类型
+	private Integer typeid;
 	
 	
+	public Integer getTypeid() {
+		return typeid;
+	}
+	public void setTypeid(Integer typeid) {
+		this.typeid = typeid;
+	}
 	public Room getRoom() {
 		return room;
 	}
@@ -84,8 +92,8 @@ public class BookVo {
 	public String toString() {
 		return "BookVo [bookid=" + bookid + ", room=" + room + ", roomNum=" + roomNum + ", customername=" + customername
 				+ ", customerphone=" + customerphone + ", guestname=" + guestname + ", guestphone=" + guestphone
-				+ ", startday=" + startday + ", endday=" + endday + ", roomtype=" + roomtype + "]";
+				+ ", startday=" + startday + ", endday=" + endday + ", roomtype=" + roomtype + ", typeid=" + typeid
+				+ "]";
 	}
 
-	
 }
