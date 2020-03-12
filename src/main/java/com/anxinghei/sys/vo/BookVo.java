@@ -9,7 +9,7 @@ public class BookVo {
 	private String guestname;
 	private String guestphone;
 	private String startday;
-	private Integer endday;
+	private String endday;
 	private Integer roomtype;
 	
 
@@ -62,10 +62,11 @@ public class BookVo {
 	public void setStartday(String startday) {
 		this.startday = startday;
 	}
-	public Integer getEndday() {
+
+	public String getEndday() {
 		return endday;
 	}
-	public void setEndday(Integer endday) {
+	public void setEndday(String endday) {
 		this.endday = endday;
 	}
 	@Override

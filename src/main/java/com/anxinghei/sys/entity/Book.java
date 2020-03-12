@@ -38,7 +38,7 @@ public class Book implements Serializable {
 	
 	    //住店结束时间
     @Column(name = "endDay")
-    private Integer endday;
+    private String endday;
 	
 
 	/**
@@ -101,17 +101,12 @@ public class Book implements Serializable {
 	public String getStartday() {
 		return startday;
 	}
-	/**
-	 * 设置：住店结束时间
-	 */
-	public void setEndday(Integer endday) {
-		this.endday = endday;
-	}
-	/**
-	 * 获取：住店结束时间
-	 */
-	public Integer getEndday() {
+
+	public String getEndday() {
 		return endday;
+	}
+	public void setEndday(String endday) {
+		this.endday = endday;
 	}
 	@Override
 	public String toString() {
