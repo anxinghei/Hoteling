@@ -17,8 +17,8 @@ public class Roomfacilities implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	    //房间号
-    @Column(name = "roomId")
-    private Integer roomid;
+    @Column(name = "typeId")
+    private Integer typeId;
 	
 	    //设施
     @Column(name = "facilityId")
@@ -29,17 +29,11 @@ public class Roomfacilities implements Serializable {
     private Integer id;
 	
 
-	/**
-	 * 设置：房间号
-	 */
-	public void setRoomid(Integer roomid) {
-		this.roomid = roomid;
+	public Integer getTypeId() {
+		return typeId;
 	}
-	/**
-	 * 获取：房间号
-	 */
-	public Integer getRoomid() {
-		return roomid;
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
 	}
 	/**
 	 * 设置：设施

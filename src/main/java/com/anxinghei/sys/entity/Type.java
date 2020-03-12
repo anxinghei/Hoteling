@@ -25,7 +25,7 @@ public class Type implements Serializable {
 
 	// 房间类别名
 	@Column(name = "name")
-	private Integer name;
+	private String name;
 
 	// 价格
 	@Column(name = "price")
@@ -48,11 +48,11 @@ public class Type implements Serializable {
 	public Integer getId() {
 		return id;
 	}
-	public Integer getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(Integer name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	/**
