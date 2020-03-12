@@ -1,8 +1,13 @@
 package com.anxinghei.sys.vo;
 
+import com.anxinghei.sys.entity.Room;
+
 public class BookVo {
 	
 	private Integer bookid;
+	// 房间，从前端获取，用于订单的添加
+	private Room room;
+	// 房间号，展示用
 	private Integer roomNum;
 	private String customername;
 	private String customerphone;
@@ -10,12 +15,21 @@ public class BookVo {
 	private String guestphone;
 	private String startday;
 	private String endday;
-	private Integer roomtype;
+	// 房间名
+	private String roomtype;
 	
-	public Integer getRoomtype() {
+	
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+	public String getRoomtype() {
 		return roomtype;
 	}
-	public void setRoomtype(Integer roomtype) {
+	public void setRoomtype(String roomtype) {
 		this.roomtype = roomtype;
 	}
 	public String getCustomername() {
@@ -68,9 +82,10 @@ public class BookVo {
 	}
 	@Override
 	public String toString() {
-		return "BookVo [bookid=" + bookid + ", roomNum=" + roomNum + ", customername=" + customername
+		return "BookVo [bookid=" + bookid + ", room=" + room + ", roomNum=" + roomNum + ", customername=" + customername
 				+ ", customerphone=" + customerphone + ", guestname=" + guestname + ", guestphone=" + guestphone
-				+ ", startday=" + startday + ", endday=" + endday + "]";
+				+ ", startday=" + startday + ", endday=" + endday + ", roomtype=" + roomtype + "]";
 	}
+
 	
 }

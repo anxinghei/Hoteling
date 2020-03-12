@@ -76,4 +76,9 @@ public class Room implements Serializable {
 	public Integer getTypeid() {
 		return typeid;
 	}
+	@Override
+	public String toString() {
+		return "Room [id=" + id + ", bookid=" + bookid + ", typeid=" + typeid + ", num=" + num + "]";
+	}
+	
 }
