@@ -47,7 +47,12 @@ public class RoomController  {
 	public String isBooked(@RequestBody BookVo vo) {
 		System.out.println(vo);
 		// 得到所有与该房间相关的订单
-		int roomNum=vo.getRoom().getNum();
+		int roomNum;
+		if (vo.getRoomNum()==null) {
+			roomNum=vo.getRoom().getNum();
+		}else {
+			roomNum=vo.getRoomNum();
+		}
 		Book roomBook=new Book();
 		roomBook.setRoomNum(roomNum);
 		List<Book> books=bookMapper.select(roomBook);
