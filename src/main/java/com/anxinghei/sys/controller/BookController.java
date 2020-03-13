@@ -57,6 +57,7 @@ public class BookController  {
 	String update(@RequestBody BookVo bookVo) {
 		Book book=bookMapper.selectByPrimaryKey(bookVo.getBookid());
 		book.setRoomNum(bookVo.getRoomNum());
+		book.setStartday(bookVo.getStartday());
 		book.setEndday(bookVo.getEndday());
 		int isUpdated=bookMapper.updateByPrimaryKey(book);
 		if (isUpdated!=0) {
@@ -73,6 +74,7 @@ public class BookController  {
 	@PostMapping("save")
 	String addBook(@RequestBody BookVo vo) {
 		System.out.println(vo);
+		bookService.addBook(vo);
 		return "success";
 	}
 }

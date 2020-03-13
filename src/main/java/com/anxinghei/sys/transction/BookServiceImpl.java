@@ -13,6 +13,7 @@ import com.anxinghei.sys.entity.Book;
 import com.anxinghei.sys.entity.Customer;
 import com.anxinghei.sys.entity.Guest;
 import com.anxinghei.sys.entity.Oldbook;
+import com.anxinghei.sys.entity.Payment;
 import com.anxinghei.sys.entity.Room;
 import com.anxinghei.sys.mapper.BandMapper;
 import com.anxinghei.sys.mapper.BookMapper;
@@ -20,6 +21,7 @@ import com.anxinghei.sys.mapper.BookVoMapper;
 import com.anxinghei.sys.mapper.CustomerMapper;
 import com.anxinghei.sys.mapper.GuestMapper;
 import com.anxinghei.sys.mapper.OldbookMapper;
+import com.anxinghei.sys.mapper.PaymentMapper;
 import com.anxinghei.sys.mapper.RoomMapper;
 import com.anxinghei.sys.mapper.TypeMapper;
 import com.anxinghei.sys.util.DateUtils;
@@ -42,6 +44,8 @@ public class BookServiceImpl implements BookService{
 	private TypeMapper typeMapper;
 	@Autowired
 	private RoomMapper RoomMapper;
+	@Autowired
+	private PaymentMapper paymentMapper;
 	
 	@Transactional
 	public void deleteById(Integer bookid) {
@@ -93,15 +97,20 @@ public class BookServiceImpl implements BookService{
 		}
 		int price=typeMapper.selectByPrimaryKey(vo.getTypeid()).getPrice()*discount/100;
 		// 4，生成订单
-		Book book=new Book(vo.getRoom().getNum(), guestMapper.selectOne(guest).getId(), 
-				customerMapper.selectOne(customer).getId(), vo.getStartday(), vo.getEndday());
+		Book book=new Book(vo.getRoom().getNum(),
+				guestMapper.selectOne(guest).getId(), 
+				customerMapper.selectOne(customer).getId(), 
+				vo.getStartday(),
+				vo.getEndday(),
+				1);
 		bookMapper.insert(book);
 		// 5，修改房间属性
 		Room room=vo.getRoom();
 		room.setBookid(bookMapper.selectOne(book).getId());
 		RoomMapper.updateByPrimaryKey(room);
 		// 6，生成付款单
-		
+		Payment payment=new Payment(guest.getName(), price, DateUtils.getDataforBook());
+		paymentMapper.insert(payment);
 	}
 	
 }

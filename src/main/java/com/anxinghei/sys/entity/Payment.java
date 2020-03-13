@@ -32,16 +32,13 @@ public class Payment implements Serializable {
     @Column(name = "date")
     private String date;
 	
-	    //是否已付款，0否1是
-    @Column(name = "idPayed")
-    private Integer idpayed;
+
     
-	public Payment(String guest, Integer amount, String date, Integer idpayed) {
+	public Payment(String guest, Integer amount, String date) {
 		super();
 		this.guest = guest;
 		this.amount = amount;
 		this.date = date;
-		this.idpayed = idpayed;
 	}
 
 	/**
@@ -92,17 +89,7 @@ public class Payment implements Serializable {
 	public String getDate() {
 		return date;
 	}
-	/**
-	 * 设置：是否已付款，0否1是
-	 */
-	public void setIdpayed(Integer idpayed) {
-		this.idpayed = idpayed;
-	}
-	/**
-	 * 获取：是否已付款，0否1是
-	 */
-	public Integer getIdpayed() {
-		return idpayed;
-	}
+
+
 	
 }
