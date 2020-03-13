@@ -74,7 +74,7 @@ public class BookController  {
 	@PostMapping("save")
 	String addBook(@RequestBody BookVo vo) {
 		System.out.println(vo);
-		bookService.addBook(vo);
+//		bookService.addBook(vo);
 		return "success";
 	}
 }
