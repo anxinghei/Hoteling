@@ -56,6 +56,12 @@ public class BookServiceImpl implements BookService{
 		// 2，将其加入到往期订单中，作为记录保存
 		Oldbook oldbook=new Oldbook(book.getRoomNum(), book.getGuestid(), book.getCustomerid(), book.getStartday(), book.getEndday());
 		oldBookMapper.insert(oldbook);
+		// 3,将对应房间的bookid重置
+		Room record=new Room();
+		record.setNum(book.getRoomNum());
+		record=RoomMapper.selectOne(record);
+		record.setBookid(0);
+		RoomMapper.updateByPrimaryKeySelective(record);
 	}
 	
 
@@ -111,6 +117,31 @@ public class BookServiceImpl implements BookService{
 		// 6，生成付款单
 		Payment payment=new Payment(guest.getName(), price, DateUtils.getDataforBook());
 		paymentMapper.insert(payment);
+	}
+	
+	@Transactional
+	public int updateBook(BookVo bookVo) {
+		System.out.println("---"+bookVo);
+		// 如果换房，typeid 暂存旧房号
+		if (bookVo.getRoomNum()!=bookVo.getTypeid()) {
+			// 重置旧房间的bookid
+			Room oldRoom=new Room();
+			oldRoom.setNum(bookVo.getTypeid());
+			oldRoom=RoomMapper.selectOne(oldRoom);
+			oldRoom.setBookid(0);
+			RoomMapper.updateByPrimaryKeySelective(oldRoom);
+			// 修改新房间的bookid
+			Room newRoom=new Room();
+			newRoom.setNum(bookVo.getRoomNum());
+			newRoom=RoomMapper.selectOne(newRoom);
+			newRoom.setBookid(bookVo.getBookid());
+			RoomMapper.updateByPrimaryKeySelective(newRoom);
+		}
+		Book book=bookMapper.selectByPrimaryKey(bookVo.getBookid());
+		book.setRoomNum(bookVo.getRoomNum());
+		book.setStartday(bookVo.getStartday());
+		book.setEndday(bookVo.getEndday());
+		return bookMapper.updateByPrimaryKey(book);
 	}
 	
 }

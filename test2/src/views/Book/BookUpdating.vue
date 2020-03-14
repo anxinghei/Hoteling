@@ -10,7 +10,11 @@
                 <el-input v-model="ruleForm.endday"></el-input>
             </el-form-item>
             <el-form-item label="房间号" prop="roomNum">
-                <el-input v-model="ruleForm.roomNum"></el-input>
+                <el-select v-model="ruleForm.roomNum" style="width: 100%" placeholder="请选择"
+                           value-key="id" >
+                    <el-option v-for="(item,index) in this.ruleForm.rooms"
+                               :label="item.num" :key="item.id" :value="item.num"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="入住者" prop="guestname">
                 <el-input v-model="ruleForm.guestname" readOnly></el-input>
@@ -47,10 +51,10 @@
                     bookid: '',
                     roomNum: '',
                     guestname: '',
-                    sex: '',
                     guestphone: '',
                     startday: '',
-                    endday: ''
+                    endday: '',
+                    rooms:[]
                 },
                 rules: {
                     roomNum: [
@@ -71,20 +75,20 @@
                 console.log(this.ruleForm)
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log(_this.ruleForm.typeid + "---")
-                        axios.post('http://localhost:8181/room/isBooked', this.ruleForm).then(function (resp) {
-                            console.log(resp)
-                            if (resp.data == 'failed') {
-                                _this.ruleForm.typeid = 1
-                            } else {
-                                _this.ruleForm.typeid = 0
-                            }
-                            if (_this.ruleForm.typeid) {
-                                _this.$alert('该房间在预定时间内已有入住者！', '消息', {
-                                    confirmButtonText: '确定',
-                                })
-                                return false;
-                            } else {
+                        // console.log(_this.ruleForm.typeid + "---")
+                        // axios.post('http://localhost:8181/room/isBooked', this.ruleForm).then(function (resp) {
+                        //     console.log(resp)
+                        //     if (resp.data == 'failed') {
+                        //         _this.ruleForm.typeid = 1
+                        //     } else {
+                        //         _this.ruleForm.typeid = 0
+                        //     }
+                        //     if (_this.ruleForm.typeid) {
+                        //         _this.$alert('该房间在预定时间内已有入住者！', '消息', {
+                        //             confirmButtonText: '确定',
+                        //         })
+                        //         return false;
+                        //     } else {
                                 axios.put('http://localhost:8181/book/update', _this.ruleForm).then(function (resp) {
                                     if (resp.data == 'success') {
                                         console.log("1111111")
@@ -96,8 +100,8 @@
                                         })
                                     }
                                 })
-                            }
-                        })
+                            // }
+                        // })
                     } else {
                         return false;
                     }
@@ -107,7 +111,16 @@
         created() {
             const _this = this
             axios.get('http://localhost:8181/book/findById/' + this.$route.query.id).then(function (resp) {
-                _this.ruleForm = resp.data
+                _this.ruleForm.startday = resp.data.startday
+                _this.ruleForm.endday = resp.data.endday
+                _this.ruleForm.guestname = resp.data.guestname
+                _this.ruleForm.guestphone = resp.data.guestphone
+                _this.ruleForm.roomNum = resp.data.roomNum
+                _this.ruleForm.bookid = _this.$route.query.id
+                _this.ruleForm.typeid = resp.data.roomNum
+                axios.post('http://localhost:8181/room/getAllByBookid/', _this.ruleForm).then(function (resp) {
+                    _this.ruleForm.rooms = resp.data
+                })
             })
         }
     }

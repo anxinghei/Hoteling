@@ -12,6 +12,7 @@ import com.anxinghei.sys.vo.BookVo;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,13 +65,52 @@ public class RoomController  {
 		boolean canBook=true;
 		for (Book book : books) {
 			canBook=DateUtils.isBooked(vo.getStartday(), vo.getEndday(), book.getStartday(), book.getEndday());
-			System.out.println(canBook);
 			if (canBook) {
 				return "success";
 			}
 		}
 		return "failed";
-		
+	}
+	
+	@PostMapping("getAllByBookid")
+	public List<Room> getRooms(@RequestBody BookVo vo){
+		System.out.println(vo);
+		// 查到订单对应的房间
+		Room record=new Room();
+		record.setNum(vo.getRoomNum());
+		record=roomMapper.selectOne(record);
+		// 查到该房间对应类别的所有房间
+		Room room=new Room();
+		room.setTypeid(record.getTypeid());
+		List<Room> rooms=roomMapper.select(room);
+		// 找到时间不冲突的所有房间
+		List<Room> roomList=new ArrayList<>();
+		roomList.add(record);
+		List<Book> books=new ArrayList<>();
+		Book book=new Book();
+		for (Room room2 : rooms) {
+			if (room2.getBookid()==0) {
+				roomList.add(room2);
+			}else {
+				// 得到所有与该房间相关的订单
+				book.setRoomNum(room2.getNum());
+				books=bookMapper.select(book);
+				// 查看是否时间冲突
+				boolean canBook=true;
+				for (int i=0;i<books.size();i++) {
+					canBook=DateUtils.isBooked(vo.getStartday(), vo.getEndday(), books.get(i).getStartday(), books.get(i).getEndday());
+					if (canBook) {
+						// 最后一个订单也是不冲突的
+						if (i==books.size()) {
+							roomList.add(room2);
+						}
+					}else {
+						break;
+					}
+				}
+			}
+		}
+		return roomList;
 	}
 
 }
