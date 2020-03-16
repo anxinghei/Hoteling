@@ -4,6 +4,7 @@ import BookManaging from '../views/Book/BookManaging'
 import BookAdding from '../views/Book/BookAdding'
 import Index from '../views/Index'
 import BookUpdating from '../views/Book/BookUpdating'
+import RoomManaging from '../views/Room/RoomManaging'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,22 @@ const routes = [
     path:'/update',
     component:BookUpdating,
     show:false
+  },
+
+  {
+    path:"/RoomManage",
+    name:"房间管理",
+    show:true,
+    component:Index,
+    // RoomManaging
+    redirect:"/RoomManage",
+    children:[
+      {
+        path:"/RoomManage",
+        name:"房间管理",
+        component:RoomManaging
+      }
+    ]
   }
 ]
 
