@@ -44,7 +44,7 @@ const routes = [
     children:[
       {
         path:"/RoomManage",
-        name:"房间管理",
+        name:"查看房间",
         component:RoomManaging
       }
     ]

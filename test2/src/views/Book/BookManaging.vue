@@ -3,11 +3,13 @@
         <el-table
                 :data="tableData"
                 border
-                style="width: 60% ">
+                style="width: 60% "
+                :default-sort="{prop: 'endday', order: 'ascending'}">
             <el-table-column
                     prop="roomNum"
                     label="房间号"
-                    width="120">
+                    width="120"
+                    sortable>
             </el-table-column>
             <el-table-column
                     prop="guestname"
@@ -22,12 +24,14 @@
             <el-table-column
                     prop="startday"
                     label="入住时间"
-                    width="120">
+                    width="120"
+                    sortable>
             </el-table-column>
             <el-table-column
                     prop="endday"
                     label="退房时间"
-                    width="120">
+                    width="120"
+                    sortable>
             </el-table-column>
             <el-table-column
                     fixed="right"

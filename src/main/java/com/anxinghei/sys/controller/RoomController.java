@@ -6,8 +6,10 @@ import com.anxinghei.sys.entity.Book;
 import com.anxinghei.sys.entity.Room;
 import com.anxinghei.sys.mapper.BookMapper;
 import com.anxinghei.sys.mapper.RoomMapper;
+import com.anxinghei.sys.mapper.RoomVoMapper;
 import com.anxinghei.sys.util.DateUtils;
 import com.anxinghei.sys.vo.BookVo;
+import com.anxinghei.sys.vo.RoomVo;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -34,6 +36,8 @@ public class RoomController  {
 	private RoomMapper roomMapper;
 	@Autowired
 	private BookMapper bookMapper;
+	@Autowired
+	private RoomVoMapper roomVoMapper;
 	
 	@GetMapping("getAllByType/{typeid}")
 	public List<Room> getAllByType(@PathVariable("typeid")Integer typeid){
@@ -113,6 +117,18 @@ public class RoomController  {
 		return roomList;
 	}
 
+	@GetMapping("getRoom")
+	public List<RoomVo> getBookedRoom(){
+		String today=DateUtils.getDataforBook();
+		return roomVoMapper.getBookedRooms(today);
+	}
 	
-	
+	@GetMapping("getUnroom")
+	public List<RoomVo> getbUnbookedRoom(){
+		String today=DateUtils.getDataforBook();
+		List<RoomVo> vos=new ArrayList<>();
+		vos.addAll(roomVoMapper.getBookRoomsnotIn(today));
+		vos.addAll(roomVoMapper.getUnbookRooms());
+		return vos;
+	}
 }

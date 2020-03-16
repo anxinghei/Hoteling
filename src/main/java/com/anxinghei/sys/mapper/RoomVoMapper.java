@@ -13,19 +13,19 @@ public interface RoomVoMapper {
 	@Select("select "
 			+ "room.num as roomNum,type.name as typeName,guest.name as guestName,guest.phone as guestPhone,book.startDay as startDay,book.endDay as endDay "
 			+ "from room,type,book,guest "
-			+ "where room.typeId=type.id and room.bookId=book.id and book.guestId=guest.id "
+			+ "where room.typeId=type.id and room.num=book.roomNum and book.guestId=guest.id "
 			+ "and book.startDay<= #{today} and book.endDay > #{today}")
 	public List<RoomVo> getBookedRooms(String today);
 	
 	@Select("select "
 			+ "room.num as roomNum,type.name as typeName,guest.name as guestName,guest.phone as guestPhone,book.startDay as startDay,book.endDay as endDay "
 			+ "from room,type,book,guest "
-			+ "where room.typeId=type.id and room.bookId=book.id and book.guestId=guest.id "
+			+ "where room.typeId=type.id and room.num=book.roomNum and book.guestId=guest.id "
 			+ "and book.startDay > #{today} and book.endDay <= #{today}")
 	public List<RoomVo> getBookRoomsnotIn(String today);
 	
-	@Select("SELECT room.num AS roomNum, type.name AS typeName"  
-			+ "FROM room, TYPE "  
-			+ "WHERE room.typeId = type.id AND room.bookId = 0")
+	@Select("select room.num as roomNum, type.name as typeName "   
+			+ "from room join type "  
+			+ "on room.typeId = type.id where room.bookId = 0")
 	public List<RoomVo> getUnbookRooms();
 }
