@@ -5,6 +5,12 @@ import BookAdding from '../views/Book/BookAdding'
 import Index from '../views/Index'
 import BookUpdating from '../views/Book/BookUpdating'
 import RoomManaging from '../views/Room/RoomManaging'
+import BookList from '../views/Hotel/BookList'
+import FacilityManager from '../views/Hotel/FacilityManager'
+import GuestList from '../views/Hotel/GuestList'
+import Payment from '../views/Hotel/Payment'
+import RoomOf from '../views/Hotel/RoomOf'
+
 
 Vue.use(VueRouter)
 
@@ -51,36 +57,36 @@ const routes = [
     },
 
     {
-        path: "/RoomManage",
+        path: "/BookList",
         name: "酒店管理",
         show: true,
         component: Index,
-        redirect: "/RoomManage",
+        redirect: "/BookList",
         children: [
             {
-                path: "/RoomManage",
+                path: "/BookList",
                 name: "订单列表",
-                component: RoomManaging
+                component: BookList
             },
             {
-                path: "/RoomManage",
+                path: "/Payment",
                 name: "收费统计",
-                component: RoomManaging
+                component: Payment
             },
             {
-                path: "/RoomManage",
+                path: "/GuestList",
                 name: "顾客列表",
-                component: RoomManaging
+                component: GuestList
             },
             {
-                path: "/RoomManage",
+                path: "/RoomOf",
                 name: "房间相关",
-                component: RoomManaging
+                component: RoomOf
             },
             {
-                path: "/RoomManage",
+                path: "/FacilityManager",
                 name: "设施管理",
-                component: RoomManaging
+                component: FacilityManager
             },
 
         ]
