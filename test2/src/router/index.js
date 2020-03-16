@@ -9,52 +9,88 @@ import RoomManaging from '../views/Room/RoomManaging'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path:"/",
-    name:"订单管理",
-    component:Index,
-    show:true,
-    redirect:"/BookManage",
-    children:[
-      {
-        path:"/BookManage",
-        name:"查询订单",
-        component:BookManaging
-      },
-      {
-        path:"/AddBook",
-        name:"添加订单",
-        component:BookAdding
-      }
-    ]
-  },
-  {
-    path:'/update',
-    component:BookUpdating,
-    show:false
-  },
+    {
+        path: "/",
+        name: "订单管理",
+        component: Index,
+        show: true,
+        redirect: "/BookManage",
+        children: [
+            {
+                path: "/BookManage",
+                name: "查询订单",
+                component: BookManaging
+            },
+            {
+                path: "/AddBook",
+                name: "添加订单",
+                component: BookAdding
+            }
+        ]
+    },
+    {
+        path: '/update',
+        component: BookUpdating,
+        show: false
+    },
 
-  {
-    path:"/RoomManage",
-    name:"房间管理",
-    show:true,
-    component:Index,
-    // RoomManaging
-    redirect:"/RoomManage",
-    children:[
-      {
-        path:"/RoomManage",
-        name:"查看房间",
-        component:RoomManaging
-      }
-    ]
-  }
+    {
+        path: "/RoomManage",
+        name: "房间管理",
+        show: true,
+        component: Index,
+        // RoomManaging
+        redirect: "/RoomManage",
+        children: [
+            {
+                path: "/RoomManage",
+                name: "查看房间",
+                component: RoomManaging
+            }
+        ]
+    },
+
+    {
+        path: "/RoomManage",
+        name: "酒店管理",
+        show: true,
+        component: Index,
+        redirect: "/RoomManage",
+        children: [
+            {
+                path: "/RoomManage",
+                name: "订单列表",
+                component: RoomManaging
+            },
+            {
+                path: "/RoomManage",
+                name: "收费统计",
+                component: RoomManaging
+            },
+            {
+                path: "/RoomManage",
+                name: "顾客列表",
+                component: RoomManaging
+            },
+            {
+                path: "/RoomManage",
+                name: "房间相关",
+                component: RoomManaging
+            },
+            {
+                path: "/RoomManage",
+                name: "设施管理",
+                component: RoomManaging
+            },
+
+        ]
+    }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
