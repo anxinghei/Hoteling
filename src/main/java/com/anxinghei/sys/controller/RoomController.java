@@ -1,6 +1,7 @@
 package com.anxinghei.sys.controller;
 
 import com.anxinghei.sys.entity.Book;
+import com.anxinghei.sys.entity.Customer;
 //import com.github.wxiaoqi.security.common.rest.BaseController;
 //import com.anxinghei.sys.biz.RoomBiz;
 import com.anxinghei.sys.entity.Room;
@@ -10,6 +11,8 @@ import com.anxinghei.sys.mapper.RoomVoMapper;
 import com.anxinghei.sys.util.DateUtils;
 import com.anxinghei.sys.vo.BookVo;
 import com.anxinghei.sys.vo.RoomVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -117,18 +120,21 @@ public class RoomController  {
 		return roomList;
 	}
 
-	@GetMapping("getRoom")
-	public List<RoomVo> getBookedRoom(){
+	@GetMapping("getRoom/{start}/{size}")
+	public PageInfo<RoomVo> getBookedRoom(@PathVariable("start") Integer start,@PathVariable("size") Integer size){
+		PageHelper.startPage(start,size);
 		String today=DateUtils.getDataforBook();
-		return roomVoMapper.getBookedRooms(today);
+		List<RoomVo> vos=roomVoMapper.getInRooms(today);
+		PageInfo<RoomVo> pageInfo=new PageInfo<RoomVo>(vos);	
+		return pageInfo;
 	}
 	
-	@GetMapping("getUnroom")
-	public List<RoomVo> getbUnbookedRoom(){
+	@GetMapping("getUnroom/{start}/{size}")
+	public PageInfo<RoomVo> getbUnbookedRoom(@PathVariable("start") Integer start,@PathVariable("size") Integer size){
+		PageHelper.startPage(start,size);
 		String today=DateUtils.getDataforBook();
-		List<RoomVo> vos=new ArrayList<>();
-		vos.addAll(roomVoMapper.getBookRoomsnotIn(today));
-		vos.addAll(roomVoMapper.getUnbookRooms());
-		return vos;
+		List<RoomVo> vos=roomVoMapper.getNotinRooms(today);
+		PageInfo<RoomVo> pageInfo=new PageInfo<RoomVo>(vos);
+		return pageInfo;
 	}
 }

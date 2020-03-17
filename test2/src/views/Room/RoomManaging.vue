@@ -38,6 +38,13 @@
                             sortable>
                     </el-table-column>
                 </el-table>
+                <el-pagination
+                        background
+                        layout="prev, pager, next"
+                        :page-size="bookedPageSize"
+                        :total="bookedTotal"
+                        @current-change="bookedPage">
+                </el-pagination>
             </el-tab-pane>
 
             <el-tab-pane label="未入住房间" name="unbooked">
@@ -57,6 +64,13 @@
                             sortable>
                     </el-table-column>
                 </el-table>
+                <el-pagination
+                        background
+                        layout="prev, pager, next"
+                        :page-size="unbookedPageSize"
+                        :total="unbookedTotal"
+                        @current-change="unbookedPage">
+                </el-pagination>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -72,23 +86,49 @@
                     guestName: '王小虎',
                     guestPhone: '13229435832',
                 }],
-                unbookedData:[]
+                unbookedData:[],
+                bookedPageSize:10,
+                bookedTotal:0,
+                unbookedPageSize:10,
+                unbookedTotal:0,
             }
         },
         methods: {
             handleClick(tab, event) {
                 this.activeName = tab.name
                 console.log(this.activeName)
+            },
+            bookedPage(pageNum){
+                const _this = this
+                axios.get('http://localhost:8181/room/getRoom/'+(pageNum)+'/10').then(function(resp){
+                    console.log(resp)
+                    _this.bookedData = resp.data.list
+                    _this.bookedPageSize = resp.data.pageSize
+                    _this.bookedTotal = resp.data.total
+                })
+            },
+            unbookedPage(pageNum){
+                const _this = this
+                axios.get('http://localhost:8181/room/getUnroom/'+(pageNum)+'/10').then(function(resp){
+                    console.log(resp)
+                    _this.unbookedData = resp.data.list
+                    _this.unbookedPageSize = resp.data.pageSize
+                    _this.unbookedTotal = resp.data.total
+                })
             }
         },
         created() {
             const _this = this
-            axios.get('http://localhost:8181/room/getRoom').then(function (resp) {
+            axios.get('http://localhost:8181/room/getRoom/0/10').then(function(resp){
                 console.log(resp)
-                _this.bookedData = resp.data
-                axios.get('http://localhost:8181/room/getUnroom').then(function (resp) {
-                    console.log(resp)
-                    _this.unbookedData = resp.data
+                _this.bookedData = resp.data.list
+                _this.bookedPageSize = resp.data.pageSize
+                _this.bookedTotal = resp.data.total
+                axios.get('http://localhost:8181/room/getUnroom/0/10').then(function(resp){
+                    console.log(resp.data.total)
+                    _this.unbookedData = resp.data.list
+                    _this.unbookedPageSize = resp.data.pageSize
+                    _this.unbookedTotal = resp.data.total
                 })
             })
         }

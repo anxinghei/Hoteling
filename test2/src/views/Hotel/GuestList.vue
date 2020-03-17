@@ -66,10 +66,10 @@
                     guestPhone: '13229435832',
                 }],
                 unroomedData:[],
-                roomedPageSize:'',
-                roomedTotal:'',
-                unroomedPageSize:'',
-                unroomedTotal:'',
+                roomedPageSize:10,
+                roomedTotal:0,
+                unroomedPageSize:10,
+                unroomedTotal:0,
             }
         },
         methods: {
