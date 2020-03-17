@@ -5,7 +5,6 @@ import BookAdding from '../views/Book/BookAdding'
 import Index from '../views/Index'
 import BookUpdating from '../views/Book/BookUpdating'
 import RoomManaging from '../views/Room/RoomManaging'
-import BookList from '../views/Hotel/BookList'
 import FacilityManager from '../views/Hotel/FacilityManager'
 import GuestList from '../views/Hotel/GuestList'
 import Payment from '../views/Hotel/Payment'
@@ -57,22 +56,13 @@ const routes = [
     },
 
     {
-        path: "/BookList",
+        path: "/GuestList",
         name: "酒店管理",
         show: true,
         component: Index,
-        redirect: "/BookList",
+        redirect: "/GuestList",
         children: [
-            {
-                path: "/BookList",
-                name: "订单列表",
-                component: BookList
-            },
-            {
-                path: "/Payment",
-                name: "收费统计",
-                component: Payment
-            },
+
             {
                 path: "/GuestList",
                 name: "顾客列表",
@@ -88,7 +78,11 @@ const routes = [
                 name: "设施管理",
                 component: FacilityManager
             },
-
+            {
+                path: "/Payment",
+                name: "收费统计",
+                component: Payment
+            },
         ]
     }
 ]
