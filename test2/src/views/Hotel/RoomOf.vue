@@ -24,10 +24,9 @@
                     </el-table-column>
                     <el-table-column
                             fixed="right"
-                            label="操作"
-                            width="150">
+                            label="操作">
                         <template slot-scope="scope">
-                            <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+                            <el-button @click="editType(scope.row)" type="text" size="small">修改</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -45,16 +44,37 @@
                         :data="discountData"
                         stripe
                         style="width: 100%"
-                        :default-sort="{prop: 'name', order: 'ascending'}">
+                        :default-sort="{prop: 'typename', order: 'ascending'}">
                     <el-table-column
-                            prop="name"
-                            label="预订者"
+                            prop="typename"
+                            label="类别名"
                             sortable>
                     </el-table-column>
                     <el-table-column
-                            prop="phone"
-                            label="联系方式"
+                            prop="startday"
+                            label="开始时间"
                             sortable>
+                    </el-table-column>
+                    <el-table-column
+                            prop="endday"
+                            label="结束时间"
+                            sortable>
+                    </el-table-column>
+                    <el-table-column
+                            prop="discount"
+                            label="折扣"
+                            sortable>
+                    </el-table-column>
+                    <el-table-column
+                            prop="description"
+                            label="说明">
+                    </el-table-column>
+                    <el-table-column
+                            fixed="right"
+                            label="操作">
+                        <template slot-scope="scope">
+                            <el-button @click="deleteDiscount(scope.row)" type="text" size="small">删除</el-button>
+                        </template>
                     </el-table-column>
                 </el-table>
                 <el-pagination
@@ -93,7 +113,7 @@
             },
             typePage(pageNum){
                 const _this = this
-                axios.get('http://localhost:8181/type/findAll/'+(pageNum)+'/10').then(function(resp){
+                axios.get('http://localhost:8181/type/findAll/'+(pageNum)+'/8').then(function(resp){
                     _this.typeData = resp.data.list
                     _this.pageSize = resp.data.pageSize
                     _this.total = resp.data.total
@@ -101,13 +121,13 @@
             },
             discountPage(pageNum){
                 const _this = this
-                axios.get('http://localhost:8181/customer/findAll/'+(pageNum)+'/10').then(function(resp){
+                axios.get('http://localhost:8181/band/findAll/'+(pageNum)+'/8').then(function(resp){
                     _this.discountData = resp.data.list
                     _this.discountPageSize = resp.data.pageSize
                     _this.discountTotal = resp.data.total
                 })
             },
-            edit(row) {
+            editType(row) {
                 this.$router.push({
                     path: '/TypeUpdate',
                     query:{
@@ -115,14 +135,26 @@
                     }
                 })
             },
+            deleteDiscount(row){
+                const _this = this
+                axios.delete('http://localhost:8181/band/deleteById/'+row.bookid).then(function(resp){
+                    _this.$alert('删除成功！', '消息', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                            window.location.reload()
+                        }
+                    })
+                })
+            },
         },
         created() {
             const _this = this
-            axios.get('http://localhost:8181/type/findAll/0/10').then(function(resp){
+            axios.get('http://localhost:8181/type/findAll/0/8').then(function(resp){
                 _this.typeData = resp.data.list
                 _this.typePageSize = resp.data.pageSize
                 _this.typeTotal = resp.data.total
-                axios.get('http://localhost:8181/customer/findAll/0/10').then(function(resp){
+                axios.get('http://localhost:8181/band/findAll/0/8').then(function(resp){
+                    console.log(resp.data)
                     _this.discountData = resp.data.list
                     _this.discountPageSize = resp.data.pageSize
                     _this.discountTotal = resp.data.total

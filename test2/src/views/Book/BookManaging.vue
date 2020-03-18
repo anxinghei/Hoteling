@@ -78,7 +78,7 @@
             },
             page(pageNum){
                 const _this = this
-                axios.get('http://localhost:8181/book/findAll/'+(pageNum)+'/10').then(function(resp){
+                axios.get('http://localhost:8181/book/findAll/'+(pageNum)+'/8').then(function(resp){
                     console.log(resp)
                     _this.tableData = resp.data.list
                     _this.pageSize = resp.data.pageSize
@@ -105,7 +105,7 @@
 
         created() {
             const _this = this
-            axios.get('http://localhost:8181/book/findAll/0/10').then(function(resp){
+            axios.get('http://localhost:8181/book/findAll/0/8').then(function(resp){
                 console.log(resp)
                 _this.tableData = resp.data.list
                 _this.pageSize = resp.data.pageSize

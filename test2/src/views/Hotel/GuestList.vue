@@ -79,7 +79,7 @@
             },
             roomedPage(pageNum){
                 const _this = this
-                axios.get('http://localhost:8181/guest/findAll/'+(pageNum)+'/10').then(function(resp){
+                axios.get('http://localhost:8181/guest/findAll/'+(pageNum)+'/8').then(function(resp){
                     _this.roomedData = resp.data.list
                     _this.pageSize = resp.data.pageSize
                     _this.total = resp.data.total
@@ -87,7 +87,7 @@
             },
             unroomedPage(pageNum){
                 const _this = this
-                axios.get('http://localhost:8181/customer/findAll/'+(pageNum)+'/10').then(function(resp){
+                axios.get('http://localhost:8181/customer/findAll/'+(pageNum)+'/8').then(function(resp){
                     _this.unroomedData = resp.data.list
                     _this.unroomedPageSize = resp.data.pageSize
                     _this.unroomedTotal = resp.data.total
@@ -96,11 +96,11 @@
         },
         created() {
             const _this = this
-            axios.get('http://localhost:8181/guest/findAll/0/10').then(function(resp){
+            axios.get('http://localhost:8181/guest/findAll/0/8').then(function(resp){
                 _this.roomedData = resp.data.list
                 _this.roomedPageSize = resp.data.pageSize
                 _this.roomedTotal = resp.data.total
-                axios.get('http://localhost:8181/customer/findAll/0/10').then(function(resp){
+                axios.get('http://localhost:8181/customer/findAll/0/8').then(function(resp){
                     _this.unroomedData = resp.data.list
                     _this.unroomedPageSize = resp.data.pageSize
                     _this.unroomedTotal = resp.data.total

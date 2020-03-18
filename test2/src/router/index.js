@@ -10,6 +10,7 @@ import GuestList from '../views/Hotel/GuestList'
 import Payment from '../views/Hotel/Payment'
 import RoomOf from '../views/Hotel/RoomOf'
 import TypeUpdate from '../views/Hotel/TypeUpdate'
+import DiscountAdd from '../views/Hotel/DiscountAdd'
 
 
 Vue.use(VueRouter)
@@ -88,7 +89,14 @@ const routes = [
     },
     {
         path: '/TypeUpdate',
+        name: "房间类别修改",
         component: TypeUpdate,
+        show: false
+    },
+    {
+        path: '/DiscountAdd',
+        name: "折扣修改",
+        component: DiscountAdd,
         show: false
     },
 ]

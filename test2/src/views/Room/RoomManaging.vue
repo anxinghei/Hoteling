@@ -100,7 +100,7 @@
             },
             bookedPage(pageNum){
                 const _this = this
-                axios.get('http://localhost:8181/room/getRoom/'+(pageNum)+'/10').then(function(resp){
+                axios.get('http://localhost:8181/room/getRoom/'+(pageNum)+'/8').then(function(resp){
                     console.log(resp)
                     _this.bookedData = resp.data.list
                     _this.bookedPageSize = resp.data.pageSize
@@ -109,7 +109,7 @@
             },
             unbookedPage(pageNum){
                 const _this = this
-                axios.get('http://localhost:8181/room/getUnroom/'+(pageNum)+'/10').then(function(resp){
+                axios.get('http://localhost:8181/room/getUnroom/'+(pageNum)+'/8').then(function(resp){
                     console.log(resp)
                     _this.unbookedData = resp.data.list
                     _this.unbookedPageSize = resp.data.pageSize
@@ -119,12 +119,12 @@
         },
         created() {
             const _this = this
-            axios.get('http://localhost:8181/room/getRoom/0/10').then(function(resp){
+            axios.get('http://localhost:8181/room/getRoom/0/8').then(function(resp){
                 console.log(resp)
                 _this.bookedData = resp.data.list
                 _this.bookedPageSize = resp.data.pageSize
                 _this.bookedTotal = resp.data.total
-                axios.get('http://localhost:8181/room/getUnroom/0/10').then(function(resp){
+                axios.get('http://localhost:8181/room/getUnroom/0/8').then(function(resp){
                     console.log(resp.data.total)
                     _this.unbookedData = resp.data.list
                     _this.unbookedPageSize = resp.data.pageSize
