@@ -35,6 +35,11 @@ public class Type implements Serializable {
 	@Column(name = "area")
 	private Integer area;
 
+	@Override
+	public String toString() {
+		return "Type [id=" + id + ", lives=" + lives + ", name=" + name + ", price=" + price + ", area=" + area + "]";
+	}
+
 	/**
 	 * 设置：
 	 */

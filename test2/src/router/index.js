@@ -9,6 +9,7 @@ import FacilityManager from '../views/Hotel/FacilityManager'
 import GuestList from '../views/Hotel/GuestList'
 import Payment from '../views/Hotel/Payment'
 import RoomOf from '../views/Hotel/RoomOf'
+import TypeUpdate from '../views/Hotel/TypeUpdate'
 
 
 Vue.use(VueRouter)
@@ -84,7 +85,12 @@ const routes = [
                 component: Payment
             },
         ]
-    }
+    },
+    {
+        path: '/TypeUpdate',
+        component: TypeUpdate,
+        show: false
+    },
 ]
 
 const router = new VueRouter({
