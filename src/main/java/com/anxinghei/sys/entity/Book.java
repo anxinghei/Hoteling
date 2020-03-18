@@ -39,15 +39,15 @@ public class Book implements Serializable {
 	@Column(name = "endDay")
 	private String endday;
 	// 是否已付款，0否1是
-	@Column(name = "ispayed")
-	private Integer ispayed;
+	@Column(name = "date")
+	private String date;
 
 	public Book() {
 		super();
 	}
 
 	public Book(Integer id, Integer roomNum, Integer guestid, Integer customerid, String startday, String endday,
-			Integer ispayed) {
+			String date) {
 		super();
 		this.id = id;
 		this.roomNum = roomNum;
@@ -55,31 +55,27 @@ public class Book implements Serializable {
 		this.customerid = customerid;
 		this.startday = startday;
 		this.endday = endday;
-		this.ispayed = ispayed;
+		this.date = date;
 	}
 
-	public Book(Integer roomNum, Integer guestid, Integer customerid, String startday, String endday,Integer ispayed) {
+	public Book(Integer roomNum, Integer guestid, Integer customerid, String startday, String endday,String date) {
 		super();
 		this.roomNum = roomNum;
 		this.guestid = guestid;
 		this.customerid = customerid;
 		this.startday = startday;
 		this.endday = endday;
-		this.ispayed=ispayed;
+		this.date=date;
 	}
 
-	/**
-	 * 设置：是否已付款，0否1是
-	 */
-	public void setIspayed(Integer ispayed) {
-		this.ispayed = ispayed;
+
+
+	public String getDate() {
+		return date;
 	}
 
-	/**
-	 * 获取：是否已付款，0否1是
-	 */
-	public Integer getIspayedd() {
-		return ispayed;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	/**
@@ -163,7 +159,9 @@ public class Book implements Serializable {
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", roomNum=" + roomNum + ", guestid=" + guestid + ", customerid=" + customerid
-				+ ", startday=" + startday + ", endday=" + endday + "]";
+				+ ", startday=" + startday + ", endday=" + endday + ", date=" + date + "]";
 	}
+
+
 
 }

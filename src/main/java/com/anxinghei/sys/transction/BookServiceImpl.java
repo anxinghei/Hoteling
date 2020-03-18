@@ -108,7 +108,7 @@ public class BookServiceImpl implements BookService{
 				customerMapper.selectOne(customer).getId(), 
 				vo.getStartday(),
 				vo.getEndday(),
-				1);
+				DateUtils.getDataforBook());
 		bookMapper.insert(book);
 		// 5，修改房间属性
 		Room room=vo.getRoom();
