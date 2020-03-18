@@ -40,6 +40,7 @@
             </el-tab-pane>
 
             <el-tab-pane label="折扣" name="discount">
+                <el-button @click="addDiscount" type="text" size="small" style="width: 100%">增加折扣</el-button>
                 <el-table
                         :data="discountData"
                         stripe
@@ -137,7 +138,8 @@
             },
             deleteDiscount(row){
                 const _this = this
-                axios.delete('http://localhost:8181/band/deleteById/'+row.bookid).then(function(resp){
+                console.log(row)
+                axios.delete('http://localhost:8181/band/deleteById/'+row.id).then(function(resp){
                     _this.$alert('删除成功！', '消息', {
                         confirmButtonText: '确定',
                         callback: action => {
@@ -146,6 +148,11 @@
                     })
                 })
             },
+            addDiscount(){
+                this.$router.push({
+                    path: '/DiscountAdd',
+                })
+            }
         },
         created() {
             const _this = this
