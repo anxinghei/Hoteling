@@ -39,8 +39,27 @@ public class Oldbook implements Serializable {
 	    //住店结束时间
     @Column(name = "endDay")
     private String endday;
-	
+    
+	@Column(name = "date")
+	private String date;
 
+	
+	public Oldbook( Integer roomid, Integer guestid, Integer customerid, String startday, String endday,
+			String date) {
+		super();
+		this.roomid = roomid;
+		this.guestid = guestid;
+		this.customerid = customerid;
+		this.startday = startday;
+		this.endday = endday;
+		this.date = date;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	/**
 	 * 设置：
 	 */
@@ -108,12 +127,5 @@ public class Oldbook implements Serializable {
 	public void setEndday(String endday) {
 		this.endday = endday;
 	}
-	public Oldbook(Integer roomid, Integer guestid, Integer customerid, String startday, String endday) {
-		super();
-		this.roomid = roomid;
-		this.guestid = guestid;
-		this.customerid = customerid;
-		this.startday = startday;
-		this.endday = endday;
-	}
+
 }

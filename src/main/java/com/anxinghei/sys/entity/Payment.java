@@ -32,13 +32,25 @@ public class Payment implements Serializable {
     @Column(name = "date")
     private String date;
 	
-
+	@Column(name = "roomNum")
+	private Integer roomNum;
+	
+	
     
-	public Payment(String guest, Integer amount, String date) {
+	public Payment(String guest, Integer amount, String date, Integer roomNum) {
 		super();
 		this.guest = guest;
 		this.amount = amount;
 		this.date = date;
+		this.roomNum = roomNum;
+	}
+
+	public Integer getRoomNum() {
+		return roomNum;
+	}
+
+	public void setRoomNum(Integer roomNum) {
+		this.roomNum = roomNum;
 	}
 
 	/**

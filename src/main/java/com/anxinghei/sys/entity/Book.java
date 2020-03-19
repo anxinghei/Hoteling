@@ -38,7 +38,7 @@ public class Book implements Serializable {
 	// 住店结束时间
 	@Column(name = "endDay")
 	private String endday;
-	// 是否已付款，0否1是
+
 	@Column(name = "date")
 	private String date;
 

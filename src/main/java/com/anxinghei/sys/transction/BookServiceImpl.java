@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService{
 		Book book=bookMapper.selectByPrimaryKey(bookid);
 		bookMapper.deleteByPrimaryKey(bookid);
 		// 2，将其加入到往期订单中，作为记录保存
-		Oldbook oldbook=new Oldbook(book.getRoomNum(), book.getGuestid(), book.getCustomerid(), book.getStartday(), book.getEndday());
+		Oldbook oldbook=new Oldbook(book.getRoomNum(), book.getGuestid(), book.getCustomerid(), book.getStartday(), book.getEndday(),book.getDate());
 		oldBookMapper.insert(oldbook);
 		// 3,将对应房间的bookid重置
 		Room record=new Room();
@@ -115,7 +115,7 @@ public class BookServiceImpl implements BookService{
 		room.setBookid(bookMapper.selectOne(book).getId());
 		RoomMapper.updateByPrimaryKey(room);
 		// 6，生成付款单
-		Payment payment=new Payment(guest.getName(), price, DateUtils.getDataforBook());
+		Payment payment=new Payment(guest.getName(), price, DateUtils.getDataforBook(),vo.getRoom().getNum());
 		paymentMapper.insert(payment);
 	}
 	
