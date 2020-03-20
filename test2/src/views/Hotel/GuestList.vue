@@ -81,8 +81,8 @@
                 const _this = this
                 axios.get('http://localhost:8181/guest/findAll/'+(pageNum)+'/8').then(function(resp){
                     _this.roomedData = resp.data.list
-                    _this.pageSize = resp.data.pageSize
-                    _this.total = resp.data.total
+                    _this.roomedPageSize = resp.data.pageSize
+                    _this.roomedTotal = resp.data.total
                 })
             },
             unroomedPage(pageNum){

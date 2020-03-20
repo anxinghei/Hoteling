@@ -37,6 +37,15 @@ public class Payment implements Serializable {
 	
 	
     
+	public Payment(Integer id, String guest, Integer amount, String date, Integer roomNum) {
+		super();
+		this.id = id;
+		this.guest = guest;
+		this.amount = amount;
+		this.date = date;
+		this.roomNum = roomNum;
+	}
+
 	public Payment(String guest, Integer amount, String date, Integer roomNum) {
 		super();
 		this.guest = guest;

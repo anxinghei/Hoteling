@@ -14,6 +14,16 @@ public class DateUtils {
 		SimpleDateFormat df = new SimpleDateFormat("MMdd");
 		return df.format(new Date());
 	}
+	
+	public static String getMonth() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMM");
+		return df.format(new Date());
+	}
+	
+	public static String getYear() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		return df.format(new Date());
+	}
 
 	// 是否在规定打折时间内
 	public static boolean isBand(String startday, String endday) {
