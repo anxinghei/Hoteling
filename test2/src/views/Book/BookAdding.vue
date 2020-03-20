@@ -130,7 +130,7 @@
                 this.ruleForm.typeid=value.id
                 var string="价格为"+value.price+"元，"+value.lives+"人间，占地"+value.area+"平方"
                 const _this = this
-                axios.get('http://localhost:8181/roomfacilities/GetOnes/'+value.id).then(function (resp) {
+                axios.get('http://localhost:8181/type/getFacilities/'+value.id).then(function (resp) {
                     console.log(resp)
                     string+=resp.data+"等房间设施"
                     _this.ruleForm.content=string

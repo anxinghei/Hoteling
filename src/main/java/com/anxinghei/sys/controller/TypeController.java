@@ -1,13 +1,16 @@
 package com.anxinghei.sys.controller;
 
+import com.anxinghei.sys.entity.Facility;
 import com.anxinghei.sys.entity.Guest;
-//import com.github.wxiaoqi.security.common.rest.BaseController;
-//import com.anxinghei.sys.biz.TypeBiz;
 import com.anxinghei.sys.entity.Type;
+import com.anxinghei.sys.mapper.FacilityMapper;
 import com.anxinghei.sys.mapper.GuestMapper;
 import com.anxinghei.sys.mapper.TypeMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
 
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class TypeController  {
 	
 	@Autowired
 	private TypeMapper typeMapper;
+	@Autowired
+	private FacilityMapper facilityMapper;
 	
 	@GetMapping("/getAll")
 	public List getAll(){
@@ -54,5 +59,18 @@ public class TypeController  {
 			return "success";
 		}
 		return "error";
+	}
+	
+	@GetMapping("getFacilities/{typeid}")
+	public StringBuilder getFacilitiesofType(@PathVariable("typeid") Integer typeid){
+		StringBuilder facilities=new StringBuilder();
+		// 查找当前房间类别的所有设施
+		String ids=typeMapper.selectByPrimaryKey(typeid).getFacilities();
+		// 查到对应的设施，加入列表中
+		String[] idList=ids.split(",");
+		for (String id : idList) {
+			facilities.append(','+facilityMapper.selectByPrimaryKey(id).getName());
+		}
+		return facilities;
 	}
 }

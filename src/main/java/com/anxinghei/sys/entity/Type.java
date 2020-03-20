@@ -35,9 +35,23 @@ public class Type implements Serializable {
 	@Column(name = "area")
 	private Integer area;
 
+	@Column(name = "facilities")
+	private String facilities;
+	
+
+
 	@Override
 	public String toString() {
-		return "Type [id=" + id + ", lives=" + lives + ", name=" + name + ", price=" + price + ", area=" + area + "]";
+		return "Type [id=" + id + ", lives=" + lives + ", name=" + name + ", price=" + price + ", area=" + area
+				+ ", facilities=" + facilities + "]";
+	}
+
+	public String getFacilities() {
+		return facilities;
+	}
+
+	public void setFacilities(String facilities) {
+		this.facilities = facilities;
 	}
 
 	/**
