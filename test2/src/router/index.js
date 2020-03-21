@@ -11,7 +11,7 @@ import Payment from '../views/Hotel/Payment'
 import RoomOf from '../views/Hotel/RoomOf'
 import TypeUpdate from '../views/Hotel/TypeUpdate'
 import DiscountAdd from '../views/Hotel/DiscountAdd'
-
+import TypeFacilities from '../views/Hotel/TypeFacilities'
 
 Vue.use(VueRouter)
 
@@ -97,6 +97,12 @@ const routes = [
         path: '/DiscountAdd',
         name: "折扣修改",
         component: DiscountAdd,
+        show: false
+    },
+    {
+        path: '/TypeFacilities',
+        name: "TypeFacilities",
+        component: TypeFacilities,
         show: false
     },
 ]

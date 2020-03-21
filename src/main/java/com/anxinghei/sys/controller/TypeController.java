@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,4 +74,40 @@ public class TypeController  {
 		}
 		return facilities;
 	}
+	
+	@GetMapping("getFacilitiyIds/{typeid}")
+	public List<Integer> getFacilitiyIds(@PathVariable("typeid") Integer typeid){
+		List<Integer> ids=new ArrayList<Integer>();
+		String idString=typeMapper.selectByPrimaryKey(typeid).getFacilities();
+		String[] idList=idString.split(",");
+		for (String id : idList) {
+			ids.add(Integer.valueOf(id));
+		}
+		return ids;
+	}
+	
+	@GetMapping("getNameById/{typeid}")
+	public String getNameById(@PathVariable("typeid") Integer typeid) {
+		return typeMapper.selectByPrimaryKey(typeid).getName();
+	}
+	
+	@PutMapping("save/{typeid}")
+	public String updateFacilities(@PathVariable("typeid") Integer typeid,@RequestBody List<Integer> ids) {
+		System.out.println(ids);
+		String idString="";
+		for (int i = 0; i < ids.size(); i++) {
+			idString=idString+","+ids.get(i);
+		}
+		idString=idString.substring(1);
+		
+		System.out.println(idString);
+		Type record=typeMapper.selectByPrimaryKey(typeid);
+		record.setFacilities(idString);
+		int isOK=typeMapper.updateByPrimaryKey(record);
+		if (isOK==1) {
+			return "success";
+		}
+		return "error";
+	}
+	
 }

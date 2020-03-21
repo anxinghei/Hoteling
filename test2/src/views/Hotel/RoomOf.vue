@@ -6,7 +6,7 @@
                         :data="typeData"
                         stripe
                         style="width: 100%"
-                        :default-sort="{prop: 'name', order: 'ascending'}">
+                        :default-sort="{prop: 'price', order: 'ascending'}">
                     <el-table-column
                             prop="name"
                             label="类别名"
@@ -27,6 +27,7 @@
                             label="操作">
                         <template slot-scope="scope">
                             <el-button @click="editType(scope.row)" type="text" size="small">修改</el-button>
+                            <el-button @click="editF(scope.row)" type="text" size="small">设施管理</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -132,6 +133,14 @@
                 this.$router.push({
                     path: '/TypeUpdate',
                     query:{
+                        id:row.id
+                    }
+                })
+            },
+            editF(row) {
+                this.$router.push({
+                    name: 'TypeFacilities',
+                    params:{
                         id:row.id
                     }
                 })
