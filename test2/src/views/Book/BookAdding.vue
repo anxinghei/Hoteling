@@ -3,6 +3,12 @@
         <el-form style="width: 60%" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
                  class="demo-ruleForm">
 
+            <el-form-item label="入住时间" prop="startday">
+                <el-input v-model="ruleForm.startday"></el-input>
+            </el-form-item>
+            <el-form-item label="退房时间" prop="endday">
+                <el-input v-model="ruleForm.endday"></el-input>
+            </el-form-item>
             <el-form-item label="房间类别" prop="roomtype">
                 <el-select v-model="ruleForm.roomtype" style="width: 100%" placeholder="请选择"
                            value-key="id" @change="changeSelect">
@@ -12,12 +18,6 @@
             </el-form-item>
             <el-form-item label="说明" prop="content" >
                 <el-input v-model="ruleForm.content" readonly></el-input>
-            </el-form-item>
-            <el-form-item label="入住时间" prop="startday">
-                <el-input v-model="ruleForm.startday"></el-input>
-            </el-form-item>
-            <el-form-item label="退房时间" prop="endday">
-                <el-input v-model="ruleForm.endday"></el-input>
             </el-form-item>
             <el-form-item label="房间号" prop="room">
                 <el-select v-model="ruleForm.room" style="width: 100%" placeholder="请选择"
@@ -70,8 +70,9 @@
                     options:[],
                     rooms:[],
                     string:'',
-                    isbooked:1
+                    isbooked:1,
                 },
+                lastPricce:0,
                 rules: {
                     room: [
                         {required: true, message: '房间号不能为空', trigger: 'blur'}
@@ -108,22 +109,42 @@
                     })
                     return false;
                 }
-                this.$refs[formName].validate((valid) => {
-                    if (valid ) {
-                        axios.post('http://localhost:8181/book/save', this.ruleForm).then(function (resp) {
-                            if (resp.data == 'success') {
-                                _this.$alert('订单添加成功！', '消息', {
-                                    confirmButtonText: '确定',
-                                    callback: action => {
-                                        _this.$router.push('/BookManage')
-                                    }
-                                })
-                            }
-                        })
-                    } else {
-                        return false;
-                    }
+                this.$confirm('此订单需收款 '+this.lastPricce+' 元', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                }).then(() => {
+                    axios.post('http://localhost:8181/book/save', this.ruleForm).then(function (resp) {
+                        if (resp.data == 'success') {
+                            _this.$alert('订单添加成功！', '消息', {
+                                confirmButtonText: '确定',
+                                callback: action => {
+                                    _this.$router.push('/BookManage')
+                                }
+                            })
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消订单'
+                    });
                 });
+                // this.$refs[formName].validate((valid) => {
+                //     if (valid ) {
+                //         axios.post('http://localhost:8181/book/save', this.ruleForm).then(function (resp) {
+                //             if (resp.data == 'success') {
+                //                 _this.$alert('订单添加成功！', '消息', {
+                //                     confirmButtonText: '确定',
+                //                     callback: action => {
+                //                         _this.$router.push('/BookManage')
+                //                     }
+                //                 })
+                //             }
+                //         })
+                //     } else {
+                //         return false;
+                //     }
+                // });
             },
             changeSelect(value){
                 this.ruleForm.roomtype=value.name
@@ -138,7 +159,11 @@
                 }),
                 axios.get('http://localhost:8181/room/getAllByType/'+value.id).then(function (resp) {
                     _this.ruleForm.rooms = resp.data
-                })
+                }),
+                    axios.post('http://localhost:8181/band/getPrice',this.ruleForm).then(function (resp) {
+                        _this.lastPricce = resp.data
+                        console.log(_this.lastPricce )
+                    })
             },
             changeRoom(value){
                 const _this = this

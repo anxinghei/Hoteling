@@ -49,5 +49,14 @@ public class FacilityController  {
 		}
 		return "error";
 	}
+	
+	@PostMapping("update")
+	public String update(@RequestBody Facility facility) {
+		int isUpdated=facilityMapper.updateByPrimaryKey(facility);
+		if (isUpdated==1) {
+			return "success";
+		}
+		return "error";
+	}
 
 }

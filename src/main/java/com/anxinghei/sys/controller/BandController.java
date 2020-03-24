@@ -3,9 +3,13 @@ package com.anxinghei.sys.controller;
 //import com.github.wxiaoqi.security.common.rest.BaseController;
 //import com.anxinghei.sys.biz.BandBiz;
 import com.anxinghei.sys.entity.Band;
+import com.anxinghei.sys.entity.Type;
 import com.anxinghei.sys.mapper.BandMapper;
 import com.anxinghei.sys.mapper.BandVoMapper;
+import com.anxinghei.sys.mapper.TypeMapper;
+import com.anxinghei.sys.util.DateUtils;
 import com.anxinghei.sys.vo.BandVo;
+import com.anxinghei.sys.vo.BookVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -35,6 +39,8 @@ public class BandController  {
 	private BandMapper bandMapper;
 	@Autowired
 	private BandVoMapper bandVoMapper;
+	@Autowired
+	private TypeMapper typeMapper;
 
 	@GetMapping("findAll/{start}/{size}")
 	PageInfo<BandVo> findAll(@PathVariable("start") Integer start,@PathVariable("size") Integer size){
@@ -80,5 +86,21 @@ public class BandController  {
 			return "success";
 		}
 		return "error";
+	}
+	
+	@PostMapping("getPrice")
+	public int getPrice(@RequestBody BookVo vo) {
+		Band record=new Band();
+		record.setTypeid(vo.getTypeid());
+		List<Band> bands=bandMapper.select(record);
+		int discount=100;
+		for (Band band : bands) {
+			if (vo.getStartday().substring(4).compareTo(band.getStartday())>=0 && vo.getEndday().substring(4).compareTo(band.getEndday())<=0) {
+				discount=band.getDiscount();
+				break;
+			}
+		}
+		Type type=typeMapper.selectByPrimaryKey(vo.getTypeid());
+		return type.getPrice()*discount/100;
 	}
 }

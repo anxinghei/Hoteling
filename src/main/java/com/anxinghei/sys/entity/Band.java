@@ -41,6 +41,11 @@ public class Band implements Serializable {
     private String description;
 	
 
+	@Override
+	public String toString() {
+		return "Band [id=" + id + ", typeid=" + typeid + ", discount=" + discount + ", startday=" + startday
+				+ ", endday=" + endday + ", description=" + description + "]";
+	}
 	/**
 	 * 设置：
 	 */

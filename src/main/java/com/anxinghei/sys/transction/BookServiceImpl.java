@@ -93,10 +93,12 @@ public class BookServiceImpl implements BookService{
 			guestMapper.insert(guest);
 		}
 		// 3，判定是否有折扣
-		List<Band> bands=bandMapper.selectAll();
+		Band record=new Band();
+		record.setTypeid(vo.getTypeid());
+		List<Band> bands=bandMapper.select(record);
 		int discount=100;
 		for (Band band : bands) {
-			if (DateUtils.isBand(band.getStartday(), band.getEndday())) {
+			if (vo.getStartday().substring(4).compareTo(band.getStartday())>=0 && vo.getEndday().substring(4).compareTo(band.getEndday())<=0) {
 				discount=band.getDiscount();
 				break;
 			}
