@@ -7,6 +7,7 @@ import com.anxinghei.sys.mapper.PaymentMapper;
 import com.anxinghei.sys.mapper.PaymentVoMapper;
 import com.anxinghei.sys.util.DateUtils;
 import com.anxinghei.sys.vo.PaymentVo;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class PaymentController  {
 	
 	@GetMapping("findAll/{start}/{size}")
 	public PageInfo<PaymentVo> getPaymentVos(@PathVariable("start") Integer start,@PathVariable("size") Integer size){
+		PageHelper.startPage(start,size);
 		List<PaymentVo> list= PaymentVoMapper.getPaymentVos();
 		return new PageInfo<>(list);
 	}

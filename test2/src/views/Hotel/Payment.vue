@@ -6,7 +6,7 @@
                         :data="payedData"
                         stripe
                         style="width: 100%"
-                        :default-sort="{prop: 'roomNum', order: 'ascending'}">
+                        :default-sort="{prop: 'date', order: 'descending'}">
                     <el-table-column
                             prop="roomNum"
                             label="房间号"
@@ -83,8 +83,8 @@
                     guestName: '王小虎',
                     guestPhone: '13229435832',
                 }],
-                payedPageSize:10,
-                payedTotal:0,
+                payedPageSize:8,
+                payedTotal:100,
                 totalData:[],
             }
         },
@@ -105,11 +105,11 @@
         created() {
             const _this = this
             axios.get('http://localhost:8181/payment/findAll/0/8').then(function(resp){
+                console.log(resp)
                 _this.payedData = resp.data.list
                 _this.payedPageSize = resp.data.pageSize
                 _this.payedTotal = resp.data.total
                 axios.get('http://localhost:8181/payment/getTotal/').then(function(resp){
-                    console.log(resp)
                     _this.totalData = resp.data
                 })
             })

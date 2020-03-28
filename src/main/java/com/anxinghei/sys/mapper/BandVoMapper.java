@@ -13,6 +13,6 @@ import tk.mybatis.mapper.common.Mapper;
 @org.apache.ibatis.annotations.Mapper
 public interface BandVoMapper extends Mapper<Band> {
 	
-	@Select("SELECT band . * , type.name AS typename FROM band JOIN TYPE ON band.typeid = type.id ORDER BY band.typeid")
+	@Select("SELECT band . * , type.name AS typename FROM band JOIN TYPE ON band.typeid = type.id ORDER BY band.startDay")
 	List<BandVo> getAll();
 }

@@ -46,7 +46,7 @@
                         :data="discountData"
                         stripe
                         style="width: 100%"
-                        :default-sort="{prop: 'typename', order: 'ascending'}">
+                        :default-sort="{prop: 'startday', order: 'ascending'}">
                     <el-table-column
                             prop="typename"
                             label="类别名"

@@ -13,7 +13,7 @@ import tk.mybatis.mapper.common.Mapper;
 public interface BookVoMapper{
 
 	@Select("select book.id as bookid,roomNum,guest.name as guestname,guest.phone as guestphone,startday,endday "
-			+ "from book join guest on book.guestid=guest.id")
+			+ "from book join guest on book.guestid=guest.id order by endday")
 	public List<BookVo> findAll();
 	
 	@Select("select book.id as bookid,roomNum,guest.name as guestname, guest.phone as guestphone,startday,endday "
