@@ -20,7 +20,7 @@
 </template>
 
 <script >
-    import {isIntGtZero, isInteger} from "../../static/checkForm";
+    import {isIntGtZero, isInteger} from "../../../static/checkForm";
 
     export default {
         data() {

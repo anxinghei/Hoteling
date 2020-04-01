@@ -8,10 +8,10 @@ import RoomManaging from '../views/Room/RoomManaging'
 import FacilityManager from '../views/Hotel/FacilityManager'
 import GuestList from '../views/Hotel/GuestList'
 import Payment from '../views/Hotel/Payment'
-import RoomOf from '../views/Hotel/RoomOf'
-import TypeUpdate from '../views/Hotel/TypeUpdate'
-import DiscountAdd from '../views/Hotel/DiscountAdd'
-import TypeFacilities from '../views/Hotel/TypeFacilities'
+import RoomOf from '../views/Hotel/RoomOf/RoomOf'
+import TypeUpdate from '../views/Hotel/RoomOf/TypeUpdate'
+import DiscountAdd from '../views/Hotel/RoomOf/DiscountAdd'
+import TypeFacilities from '../views/Hotel/RoomOf/TypeFacilities'
 
 Vue.use(VueRouter)
 
@@ -95,13 +95,13 @@ const routes = [
     },
     {
         path: '/DiscountAdd',
-        name: "折扣修改",
+        name: "增加折扣",
         component: DiscountAdd,
         show: false
     },
     {
         path: '/TypeFacilities',
-        name: "TypeFacilities",
+        name: "房间设施修改",
         component: TypeFacilities,
         show: false
     },
