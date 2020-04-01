@@ -1,6 +1,6 @@
 package com.anxinghei.sys.mapper;
 
-import com.anxinghei.sys.pojo.Permission;
+import com.anxinghei.sys.entity.Permission;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

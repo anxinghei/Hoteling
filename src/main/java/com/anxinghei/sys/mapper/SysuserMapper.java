@@ -1,6 +1,6 @@
 package com.anxinghei.sys.mapper;
 
-import com.anxinghei.sys.pojo.Sysuser;
+import com.anxinghei.sys.entity.Sysuser;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

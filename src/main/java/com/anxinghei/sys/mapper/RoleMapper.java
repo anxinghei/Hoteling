@@ -1,6 +1,6 @@
 package com.anxinghei.sys.mapper;
 
-import com.anxinghei.sys.pojo.Role;
+import com.anxinghei.sys.entity.Role;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
