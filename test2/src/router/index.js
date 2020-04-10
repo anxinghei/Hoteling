@@ -12,10 +12,17 @@ import RoomOf from '../views/Hotel/RoomOf/RoomOf'
 import TypeUpdate from '../views/Hotel/RoomOf/TypeUpdate'
 import DiscountAdd from '../views/Hotel/RoomOf/DiscountAdd'
 import TypeFacilities from '../views/Hotel/RoomOf/TypeFacilities'
+import login from '../views/login'
 
 Vue.use(VueRouter)
 
 const routes = [
+    {
+        path: '/login',
+        component: login,
+        show: false
+    },
+
     {
         path: "/",
         name: "订单管理",
