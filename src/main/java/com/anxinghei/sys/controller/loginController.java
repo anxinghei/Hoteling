@@ -63,36 +63,36 @@ public class loginController {
 		return "failed";
 	}
 
-	@RequestMapping(value="login",method = RequestMethod.POST)
-	public Map<String, String> login(String userName,String password,String verifyCode,boolean rememberMe)  {
+	// 0成功 	1验证码错误		2用户名不存在	3密码错误
+	@RequestMapping(value="logining",method = RequestMethod.POST)
+	public int login(@RequestBody Sysuser sysuser)  {
+		System.out.println(sysuser);
 		/**
 		 * 使用Shiro编写认证操作
 		 */
 //1.获取Subject
 		Subject subject = SecurityUtils.getSubject();	
 //2.封装用户数据
-		UsernamePasswordToken token = new UsernamePasswordToken(userName,password,rememberMe);
+		UsernamePasswordToken token = new UsernamePasswordToken(sysuser.getUsername(),sysuser.getPassword());
 //3.执行登录方法
 		// 获取session中的验证码
-        String verCode = (String) subject.getSession().getAttribute(SHIRO_VERIFY_SESSION);
-        Map<String, String> map=new HashMap<>();
-        if("".equals(verifyCode)||(!verCode.equals(verifyCode))){
-            map.put("failed", "验证码错误");
-            return map;
-        }
+//        String verCode = (String) subject.getSession().getAttribute(SHIRO_VERIFY_SESSION);
+//        if("".equals(verifyCode)||(!verCode.equals(verifyCode))){
+//            map.put("failed", "验证码错误");
+//            return 1;
+//        }
 		try {
-			token.setRememberMe(rememberMe);
+//			token.setRememberMe(rememberMe);
 			subject.login(token);
 			//登录成功，跳转到主页面
-			map.put("success", "登录成功");
+			return 0;
 		} catch (UnknownAccountException e) {
 			//登录失败:用户名不存在
-			map.put("failed", "用户名不存在");
+			return 2;
 		}catch (IncorrectCredentialsException e) {
 			//登录失败:密码错误
-			map.put("failed", "密码错误");
+			return 3;
 		}
-		return map;
 	}
 	
 	@RequestMapping("/toHome")

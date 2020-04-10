@@ -12,14 +12,20 @@ import RoomOf from '../views/Hotel/RoomOf/RoomOf'
 import TypeUpdate from '../views/Hotel/RoomOf/TypeUpdate'
 import DiscountAdd from '../views/Hotel/RoomOf/DiscountAdd'
 import TypeFacilities from '../views/Hotel/RoomOf/TypeFacilities'
-import login from '../views/login'
+import Login from '../views/Login'
+import Home from "../views/Home";
 
 Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/login',
-        component: login,
+        path: '/Login',
+        component: Login,
+        show: false
+    },
+    {
+        path: '/Home',
+        component: Home,
         show: false
     },
 

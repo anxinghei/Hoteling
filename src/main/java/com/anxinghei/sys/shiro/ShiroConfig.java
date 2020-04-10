@@ -49,6 +49,7 @@ public class ShiroConfig {
 		
 		//放行login.html页面
 		filterMap.put("/login", "anon");
+		filterMap.put("/logining", "anon");
 		filterMap.put("/getCode","anon");
 		//修改调整的登录页面
 		shiroFilterFactoryBean.setLoginUrl("/login");
@@ -80,7 +81,7 @@ public class ShiroConfig {
 		//关联realm
 		securityManager.setRealm(userRealm);
 		//使用记住我
-		securityManager.setRememberMeManager(rememberMeManager());
+//		securityManager.setRememberMeManager(rememberMeManager());
 		// 自定义缓存实现 使用redis
 //        securityManager.setCacheManager(cacheManager());
         // 自定义session管理 使用redis
