@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <el-form ref="form" :model="form" label-width="80px" class="login-form">
+        <el-form ref="form" :model="form" :rules="rules"  label-width="80px" class="login-form">
             <h2 class="login-title">酒店管理系统</h2>
 
             <h4 class="login-title" style="color:red">{{this.mes}}</h4>
@@ -9,6 +9,18 @@
             </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="form.password"></el-input>
+            </el-form-item>
+            <el-form-item label="验证码" prop="identify">
+                <el-col :span="9">
+                    <el-input v-model="form.identify" ></el-input>
+                </el-col>
+                <el-col :span="15">
+                    <div class="demo-image__placeholder">
+                        <div class="block">
+                            <el-image :src="this.img"></el-image>
+                        </div>
+                    </div>
+                </el-col>
             </el-form-item>
 
             <el-form-item>
@@ -24,8 +36,22 @@
                 form: {
                     username: "",
                     password: "",
+                    identify:'',
+                    rememberMe:true,
                 },
                 mes:'',
+                img:'http://127.0.0.1:8181/getCode',
+                rules: {
+                    username: [
+                        { required: true, message: '请输入用户名', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' }
+                    ],
+                    identify:[
+                        { required: true, message: '请输入验证码', trigger: 'blur' }
+                    ]
+                }
             };
         },
         methods: {

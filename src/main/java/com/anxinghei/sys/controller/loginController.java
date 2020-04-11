@@ -37,6 +37,7 @@ import com.anxinghei.sys.entity.Sysuser;
 import com.anxinghei.sys.mapper.PermissionMapper;
 import com.anxinghei.sys.mapper.RoleMapper;
 import com.anxinghei.sys.util.baiscData;
+import com.anxinghei.sys.vo.LoginVo;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 
 @RestController
@@ -65,24 +66,27 @@ public class loginController {
 
 	// 0成功 	1验证码错误		2用户名不存在	3密码错误
 	@RequestMapping(value="logining",method = RequestMethod.POST)
-	public int login(@RequestBody Sysuser sysuser)  {
-		System.out.println(sysuser);
+	public int login(@RequestBody LoginVo LoginVo)  {
+		
+		System.out.println(LoginVo);
 		/**
 		 * 使用Shiro编写认证操作
 		 */
 //1.获取Subject
 		Subject subject = SecurityUtils.getSubject();	
 //2.封装用户数据
-		UsernamePasswordToken token = new UsernamePasswordToken(sysuser.getUsername(),sysuser.getPassword());
+		UsernamePasswordToken token = new UsernamePasswordToken(LoginVo.getUsername(),LoginVo.getPassword(),LoginVo.getRememberMe());
+		System.out.println(token);
 //3.执行登录方法
 		// 获取session中的验证码
-//        String verCode = (String) subject.getSession().getAttribute(SHIRO_VERIFY_SESSION);
-//        if("".equals(verifyCode)||(!verCode.equals(verifyCode))){
-//            map.put("failed", "验证码错误");
-//            return 1;
-//        }
+        String verCode = (String) subject.getSession().getAttribute(SHIRO_VERIFY_SESSION);
+        System.out.println(verCode);
+        if("".equals(LoginVo.getIdentify())||(!verCode.equals(LoginVo.getIdentify()))){
+        	// 登录失败:验证码错误
+            return 1;
+        }
 		try {
-//			token.setRememberMe(rememberMe);
+			token.setRememberMe(LoginVo.getRememberMe());
 			subject.login(token);
 			//登录成功，跳转到主页面
 			return 0;
@@ -140,6 +144,7 @@ public class loginController {
             //生产验证码字符串并保存到session中
             String createText = defaultKaptcha.createText();
             request.getSession().setAttribute(SHIRO_VERIFY_SESSION,createText);
+            System.out.println("生成的验证码："+request.getSession().getAttribute(SHIRO_VERIFY_SESSION));
             //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
             BufferedImage challenge = defaultKaptcha.createImage(createText);
             ImageIO.write(challenge,"jpg",jpegOutputStream);

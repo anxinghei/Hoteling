@@ -1,13 +1,8 @@
 <template>
   <div id="app">
 
-    <el-container style="height: 700px; border: 1px solid #eee">
-
-      <el-main>
         <router-view></router-view>
-      </el-main>
 
-    </el-container>
   </div>
 </template>
 

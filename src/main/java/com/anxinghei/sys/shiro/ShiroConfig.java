@@ -64,7 +64,7 @@ public class ShiroConfig {
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		filterMap.put("/*", "authc");
 		//设置未授权提示页面
-		shiroFilterFactoryBean.setUnauthorizedUrl("/noAuth");
+//		shiroFilterFactoryBean.setUnauthorizedUrl("/noAuth");
 		
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 		
@@ -81,7 +81,7 @@ public class ShiroConfig {
 		//关联realm
 		securityManager.setRealm(userRealm);
 		//使用记住我
-//		securityManager.setRememberMeManager(rememberMeManager());
+		securityManager.setRememberMeManager(rememberMeManager());
 		// 自定义缓存实现 使用redis
 //        securityManager.setCacheManager(cacheManager());
         // 自定义session管理 使用redis
