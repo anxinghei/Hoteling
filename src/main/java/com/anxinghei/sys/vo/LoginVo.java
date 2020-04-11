@@ -7,12 +7,22 @@ public class LoginVo {
 	private String identify;
 	private boolean rememberMe;
 	
+	private  static String code="";
 	
 	@Override
 	public String toString() {
 		return "LoginVo [username=" + username + ", password=" + password + ", identify=" + identify + ", rememberMe="
 				+ rememberMe + "]";
 	}
+	
+	public static String getCode() {
+		return code;
+	}
+
+	public static void setCode(String code) {
+		LoginVo.code = code;
+	}
+
 	public String getUsername() {
 		return username;
 	}

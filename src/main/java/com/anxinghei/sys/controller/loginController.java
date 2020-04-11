@@ -79,7 +79,8 @@ public class loginController {
 		System.out.println(token);
 //3.执行登录方法
 		// 获取session中的验证码
-        String verCode = (String) subject.getSession().getAttribute(SHIRO_VERIFY_SESSION);
+//        String verCode = (String) subject.getSession().getId();
+		String verCode = LoginVo.getCode();
         System.out.println(verCode);
         if("".equals(LoginVo.getIdentify())||(!verCode.equals(LoginVo.getIdentify()))){
         	// 登录失败:验证码错误
@@ -143,8 +144,9 @@ public class loginController {
         try {
             //生产验证码字符串并保存到session中
             String createText = defaultKaptcha.createText();
-            request.getSession().setAttribute(SHIRO_VERIFY_SESSION,createText);
-            System.out.println("生成的验证码："+request.getSession().getAttribute(SHIRO_VERIFY_SESSION));
+            LoginVo.setCode(createText);
+//            request.getSession().setAttribute(SHIRO_VERIFY_SESSION,createText);
+            System.out.println("生成的验证码："+createText);
             //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
             BufferedImage challenge = defaultKaptcha.createImage(createText);
             ImageIO.write(challenge,"jpg",jpegOutputStream);
