@@ -6,9 +6,7 @@
 
                 </div></el-col>
             <el-col :span="8">
-                <div class="grid-content bg-purple">
-
-                </div>
+                <el-button  @click="logouting">退出</el-button>
             </el-col>
         </el-row>
 
@@ -68,7 +66,14 @@
             }
         },
         methods:{
-
+            logouting(){
+                const _this=this
+                axios.post('http://localhost:8181/sysuser/logouting').then(function(resp){
+                    _this.$router.push({
+                        path: '/Login'
+                    }).catch(err => {})
+                })
+            }
         }
     };
 </script>
