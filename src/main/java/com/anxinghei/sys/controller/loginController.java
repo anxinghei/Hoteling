@@ -17,6 +17,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ import com.anxinghei.sys.entity.Role;
 import com.anxinghei.sys.entity.Sysuser;
 import com.anxinghei.sys.mapper.PermissionMapper;
 import com.anxinghei.sys.mapper.RoleMapper;
+import com.anxinghei.sys.mapper.SysuserMapper;
 import com.anxinghei.sys.util.baiscData;
 import com.anxinghei.sys.vo.LoginVo;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -50,15 +52,27 @@ public class loginController {
 	private RoleMapper authGroupService;
 	@Autowired
 	private PermissionMapper ruleService;
+	@Autowired
+	private SysuserMapper sysuserMapper;
 	
 	@RequestMapping(value="login",method = RequestMethod.GET)
 	public String toLogin() {
-		Subject subject = SecurityUtils.getSubject();	
-		if(subject.isRemembered()){
-			System.out.println("-------------------------------------------------");
+//		Subject subject = SecurityUtils.getSubject();	
+//		System.out.println(subject);
+//		if(subject.isAuthenticated()){
+//			System.out.println(subject.getPrincipal());
+//            System.out.println("认证成功");
+////            Sysuser member = (Sysuser)subject.getPrincipal();
+////            model.addAttribute("member",member);
+//            return "success";
+//        }
+//		return "failed";
+		Sysuser sysuser=LoginVo.getSysuser();
+		if(sysuser!=null){
+			sysuser=sysuserMapper.selectOne(sysuser);
+			LoginVo.setSysuser(sysuser);
+			System.out.println(LoginVo.getSysuser());
             System.out.println("认证成功");
-//            Sysuser member = (Sysuser)subject.getPrincipal();
-//            model.addAttribute("member",member);
             return "success";
         }
 		return "failed";
@@ -76,10 +90,9 @@ public class loginController {
 		Subject subject = SecurityUtils.getSubject();	
 //2.封装用户数据
 		UsernamePasswordToken token = new UsernamePasswordToken(LoginVo.getUsername(),LoginVo.getPassword(),LoginVo.getRememberMe());
-		System.out.println(token);
 //3.执行登录方法
 		// 获取session中的验证码
-//        String verCode = (String) subject.getSession().getId();
+//        String verCode = (String) subject.getSession().getAttribute(SHIRO_VERIFY_SESSION);
 		String verCode = LoginVo.getCode();
         System.out.println(verCode);
         if("".equals(LoginVo.getIdentify())||(!verCode.equals(LoginVo.getIdentify()))){
@@ -89,6 +102,9 @@ public class loginController {
 		try {
 			token.setRememberMe(LoginVo.getRememberMe());
 			subject.login(token);
+			Sysuser sysuser=new Sysuser(LoginVo.getUsername(),LoginVo.getPassword());
+			LoginVo.setSysuser(sysuser);
+			System.out.println("登录"+subject);
 			//登录成功，跳转到主页面
 			return 0;
 		} catch (UnknownAccountException e) {
@@ -146,6 +162,9 @@ public class loginController {
             String createText = defaultKaptcha.createText();
             LoginVo.setCode(createText);
 //            request.getSession().setAttribute(SHIRO_VERIFY_SESSION,createText);
+//            Subject subject = SecurityUtils.getSubject();	
+//            Session session = subject.getSession();
+//            session.setAttribute(SHIRO_VERIFY_SESSION,createText);
             System.out.println("生成的验证码："+createText);
             //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
             BufferedImage challenge = defaultKaptcha.createImage(createText);

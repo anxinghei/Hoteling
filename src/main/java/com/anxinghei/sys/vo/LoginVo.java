@@ -1,5 +1,7 @@
 package com.anxinghei.sys.vo;
 
+import com.anxinghei.sys.entity.Sysuser;
+
 public class LoginVo {
 	
 	private String username;
@@ -7,7 +9,8 @@ public class LoginVo {
 	private String identify;
 	private boolean rememberMe;
 	
-	private  static String code="";
+	private static Sysuser sysuser=null;
+	private static String code="";
 	
 	@Override
 	public String toString() {
@@ -15,6 +18,14 @@ public class LoginVo {
 				+ rememberMe + "]";
 	}
 	
+	public static Sysuser getSysuser() {
+		return sysuser;
+	}
+
+	public static void setSysuser(Sysuser sysuser) {
+		LoginVo.sysuser = sysuser;
+	}
+
 	public static String getCode() {
 		return code;
 	}

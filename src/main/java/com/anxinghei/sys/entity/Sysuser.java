@@ -45,6 +45,20 @@ public class Sysuser implements Serializable {
     private Integer role;
 	
 
+	@Override
+	public String toString() {
+		return "Sysuser [id=" + id + ", nickname=" + nickname + ", username=" + username + ", password=" + password
+				+ ", status=" + status + ", lockending=" + lockending + ", role=" + role + "]";
+	}
+	public Sysuser(String username, String password) {
+			super();
+			this.username = username;
+			this.password = password;
+		}
+	public Sysuser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * 设置：
 	 */

@@ -70,6 +70,22 @@
                     }
                 })
             }
+        },
+        created() {
+            const _this = this
+            axios.get('http://localhost:8181/login').then(function(resp){
+                if (resp.data == "success"){
+                    _this.$router.push({
+                        path: '/Home'
+                    }).catch(err => {})
+                    console.log("登录成功")
+                }else{
+                    console.log(resp)
+                    _this.$router.push({
+                        path: '/Login'
+                    }).catch(err => {})
+                }
+            })
         }
     };
 </script>

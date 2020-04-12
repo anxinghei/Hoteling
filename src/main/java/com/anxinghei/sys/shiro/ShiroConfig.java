@@ -56,7 +56,7 @@ public class ShiroConfig {
 		// 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/toHome");
        //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterMap.put("/logout", "logout");
+        filterMap.put("/logouting", "authc");
         
         //rememberMe 登录即可访问
         filterMap.put("/toHome", "user");
