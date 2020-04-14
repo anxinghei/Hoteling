@@ -119,7 +119,7 @@ public class ShiroConfig {
         cookieRememberMeManager.setCookie(rememberMeCookie());
         // cookieRememberMeManager.setCipherKey用来设置加密的Key,参数类型byte[],字节数组长度要求16
         // cookieRememberMeManager.setCipherKey(Base64.decode("3AvVhmFLUs0KTA3Kprsdag=="));
-       cookieRememberMeManager.setCipherKey("ZHANGXIAOHEI_CAT".getBytes());
+//       cookieRememberMeManager.setCipherKey("ZHANGXIAOHEI_CAT".getBytes());
         return cookieRememberMeManager;
     }
 

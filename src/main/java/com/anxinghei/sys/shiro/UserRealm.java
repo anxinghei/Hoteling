@@ -102,6 +102,7 @@ public class UserRealm extends AuthorizingRealm{
 		//编写shiro判断逻辑，判断用户名和密码
 		//1.判断用户名
 		UsernamePasswordToken token = (UsernamePasswordToken)arg0;
+		System.out.println("认证里的token:"+token.getUsername()+"--"+token.getPassword());
 		Sysuser sysuser=new Sysuser();
 		sysuser.setUsername(token.getUsername());
 		Sysuser member = memberService.selectOne(sysuser);

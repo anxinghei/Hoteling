@@ -74,6 +74,12 @@
                     }).catch(err => {})
                 })
             }
+        },
+        created() {
+            axios.get('http://localhost:8181/sysuser/toHome').then(function(resp){
+                console.log('当前用户')
+                console.log(resp)
+            })
         }
     };
 </script>

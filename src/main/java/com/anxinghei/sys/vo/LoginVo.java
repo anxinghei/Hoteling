@@ -9,7 +9,6 @@ public class LoginVo {
 	private String identify;
 	private boolean rememberMe;
 	
-	private static Sysuser sysuser=null;
 	private static String code="";
 	
 	@Override
@@ -18,13 +17,6 @@ public class LoginVo {
 				+ rememberMe + "]";
 	}
 	
-	public static Sysuser getSysuser() {
-		return sysuser;
-	}
-
-	public static void setSysuser(Sysuser sysuser) {
-		LoginVo.sysuser = sysuser;
-	}
 
 	public static String getCode() {
 		return code;

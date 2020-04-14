@@ -41,6 +41,7 @@ import com.anxinghei.sys.mapper.RoleMapper;
 import com.anxinghei.sys.mapper.SysuserMapper;
 import com.anxinghei.sys.util.baiscData;
 import com.anxinghei.sys.vo.LoginVo;
+import com.anxinghei.sys.vo.MemberVo;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 
 @RestController
@@ -68,11 +69,8 @@ public class loginController {
 //            return "success";
 //        }
 //		return "failed";
-		Sysuser sysuser=LoginVo.getSysuser();
+		Sysuser sysuser=MemberVo.getSysuser();
 		if(sysuser!=null){
-			sysuser=sysuserMapper.selectOne(sysuser);
-			LoginVo.setSysuser(sysuser);
-			System.out.println(LoginVo.getSysuser());
             System.out.println("认证成功");
             return "success";
         }
@@ -91,6 +89,7 @@ public class loginController {
 		Subject subject = SecurityUtils.getSubject();	
 //2.封装用户数据
 		UsernamePasswordToken token = new UsernamePasswordToken(LoginVo.getUsername(),LoginVo.getPassword(),LoginVo.getRememberMe());
+		System.out.println("login里的token:"+token .getUsername()+"--"+token.getPassword());
 //3.执行登录方法
 		// 获取session中的验证码
 //        String verCode = (String) subject.getSession().getAttribute(SHIRO_VERIFY_SESSION);
@@ -101,11 +100,12 @@ public class loginController {
             return 1;
         }
 		try {
-			token.setRememberMe(LoginVo.getRememberMe());
+//			token.setRememberMe(LoginVo.getRememberMe());
 			subject.login(token);
 			Sysuser sysuser=new Sysuser(LoginVo.getUsername(),LoginVo.getPassword());
-			LoginVo.setSysuser(sysuser);
-			System.out.println("登录"+subject);
+			sysuser=sysuserMapper.selectOne(sysuser);
+			MemberVo.setSysuser(sysuser);
+			System.out.println("登录用户"+MemberVo.getSysuser());
 			//登录成功，跳转到主页面
 			return 0;
 		} catch (UnknownAccountException e) {
@@ -117,38 +117,7 @@ public class loginController {
 		}
 	}
 	
-	@RequestMapping("/toHome")
-	public List<Object> toHome() {
-		List<Object> toReturn=new ArrayList<>();
-		// 得到当前用户
-		Subject subject = SecurityUtils.getSubject();
-		Sysuser member = (Sysuser)subject.getPrincipal();
-		
-		toReturn.add(member);
-		
-        int groupId=member.getRole();
-        Role authGroup=authGroupService.selectByPrimaryKey(groupId);
-        // 得到角色的权限集：String-->int[]
-     	String authString=authGroup.getPerm();
-     	int[] rulesInt=baiscData.splitString(authString);
-     	// 划分一二级菜单
-     	List<Permission> firstRules=new ArrayList<Permission>();
-     	List<Permission> secondRules=new ArrayList<Permission>();
-     	Permission authRule=new Permission();
-     	for (int i = 0; i < rulesInt.length; i++) {
-     		authRule=ruleService.selectByPrimaryKey(rulesInt[i]);
-     		if (0==authRule.getPid()) {
-				firstRules.add(authRule);
-			}else {
-				secondRules.add(authRule);
-			}
-		}
-     	
-     	toReturn.add(firstRules);
-     	toReturn.add(secondRules);
-     	
-		return toReturn;
-	}
+	
 	
 	
 	

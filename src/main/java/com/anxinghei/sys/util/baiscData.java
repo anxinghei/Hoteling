@@ -21,11 +21,12 @@ public class baiscData {
 	}
 // 切分权限集
 	public static int[] splitString(String authString) {
-		authString=authString.substring(1);
+//		authString=authString.substring(1);
 		String[] ruleStrings=authString.split(",");
 		int[] rulesInt=new int[ruleStrings.length];
 		for (int i = 0; i < ruleStrings.length; i++) {
 			rulesInt[i]=Integer.parseInt(ruleStrings[i]);
+//			System.out.print(Integer.parseInt(ruleStrings[i]));
 		}
 		return rulesInt;
 	}
