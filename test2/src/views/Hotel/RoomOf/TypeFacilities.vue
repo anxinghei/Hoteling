@@ -59,13 +59,14 @@
         },
         created() {
             const _this = this
+            console.log(this.$route.query.id)
             axios.get('http://localhost:8181/facility/findAll/0/80').then(function (resp) {
                 _this.selectedData = resp.data.list
-                axios.get('http://localhost:8181/type/getFacilitiyIds/' + _this.$route.params.id).then(function (resp) {
+                axios.get('http://localhost:8181/type/getFacilitiyIds/' + _this.$route.query.id).then(function (resp) {
                     _this.selectedAllList = resp.data
                 })
             })
-            axios.get('http://localhost:8181/type/getNameById/' + _this.$route.params.id).then(function (resp) {
+            axios.get('http://localhost:8181/type/getNameById/' + _this.$route.query.id).then(function (resp) {
                 _this.typeName = resp.data
             })
         }

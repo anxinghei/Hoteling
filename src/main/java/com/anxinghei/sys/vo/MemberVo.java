@@ -9,10 +9,7 @@ public class MemberVo {
 
 	private static Sysuser sysuser=null;
 	private Sysuser user;
-	private List<Permission> firstRules;
-	private List<Permission> secondRules;
-	
-	
+	private List<PermissionVo> rules;
 	
 	public Sysuser getUser() {
 		return user;
@@ -26,22 +23,11 @@ public class MemberVo {
 	public static void setSysuser(Sysuser user) {
 		sysuser = user;
 	}
-	public  List<Permission> getFirstRules() {
-		return firstRules;
+	public List<PermissionVo> getRules() {
+		return rules;
 	}
-	public  void setFirstRules(List<Permission> Rules) {
-		firstRules = Rules;
+	public void setRules(List<PermissionVo> rules) {
+		this.rules = rules;
 	}
-	public  List<Permission> getSecondRules() {
-		return secondRules;
-	}
-	public  void setSecondRules(List<Permission> Rules) {
-		secondRules = Rules;
-	}
-	@Override
-	public String toString() {
-		return "MemberVo [sysuser=" + sysuser + ", firstRules=" + firstRules + ", secondRules=" + secondRules + "]";
-	}
-	
 	
 }

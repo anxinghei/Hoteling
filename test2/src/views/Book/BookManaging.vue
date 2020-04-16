@@ -3,7 +3,7 @@
         <el-table
                 :data="tableData"
                 border
-                style="width: 60% "
+                style="width: 51% "
                 :default-sort="{prop: 'endday', order: 'ascending'}">
             <el-table-column
                     prop="roomNum"

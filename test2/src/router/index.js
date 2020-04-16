@@ -50,8 +50,16 @@ const routes = [
     },
     {
         path: '/update',
-        component: BookUpdating,
-        show: false
+        component: Index,
+        show: false,
+        redirect: "/update",
+        children: [
+            {
+                path: "/update",
+                name: "修改订单",
+                component: BookUpdating
+            }
+        ]
     },
 
     {
@@ -102,22 +110,45 @@ const routes = [
     },
     {
         path: '/TypeUpdate',
-        name: "房间类别修改",
-        component: TypeUpdate,
-        show: false
-    },
-    {
-        path: '/DiscountAdd',
-        name: "增加折扣",
-        component: DiscountAdd,
-        show: false
+        component: Index,
+        show: false,
+        redirect: "/TypeUpdate",
+        children: [
+            {
+                path: "/TypeUpdate",
+                name: "房间类别修改",
+                component: TypeUpdate
+            }
+        ]
     },
     {
         path: '/TypeFacilities',
-        name: "房间设施修改",
-        component: TypeFacilities,
-        show: false
+        component: Index,
+        name: '设施修改',
+        show: false,
+        redirect: "/TypeFacilities",
+        children: [
+            {
+                path: "/TypeFacilities",
+                name: "房间设施修改",
+                component: TypeFacilities
+            }
+        ]
     },
+    {
+        path: '/DiscountAdd',
+        component: Index,
+        show: false,
+        redirect: "/DiscountAdd",
+        children: [
+            {
+                path: "/DiscountAdd",
+                name: "增加折扣",
+                component: DiscountAdd
+            }
+        ]
+    },
+
 ]
 
 const router = new VueRouter({

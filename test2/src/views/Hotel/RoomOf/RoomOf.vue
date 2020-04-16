@@ -139,8 +139,8 @@
             },
             editF(row) {
                 this.$router.push({
-                    name: 'TypeFacilities',
-                    params:{
+                    path: '/TypeFacilities',
+                    query:{
                         id:row.id
                     }
                 })

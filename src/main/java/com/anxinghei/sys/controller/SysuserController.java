@@ -11,6 +11,7 @@ import com.anxinghei.sys.mapper.SysuserMapper;
 import com.anxinghei.sys.util.baiscData;
 import com.anxinghei.sys.vo.LoginVo;
 import com.anxinghei.sys.vo.MemberVo;
+import com.anxinghei.sys.vo.PermissionVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,24 +55,24 @@ public class SysuserController  {
         // 得到角色的权限集：String-->int[]
      	String authString=authGroup.getPerm();
      	int[] rulesInt=baiscData.splitString(authString);
-//     	System.out.println("权限集合："+rulesInt);
+
      	// 划分一二级菜单
      	List<Permission> firstRules=new ArrayList<Permission>();
-     	List<Permission> secondRules=new ArrayList<Permission>();
+     	List<PermissionVo> lists=new ArrayList<PermissionVo>();
      	Permission authRule=new Permission();
+     	PermissionVo permissionVo=null;
      	for (int i = 0; i < rulesInt.length; i++) {
      		authRule=ruleService.selectByPrimaryKey(rulesInt[i]);
      		if (0==authRule.getPid()) {
-				firstRules.add(authRule);
-			}else {
-				secondRules.add(authRule);
+				firstRules=ruleService.getPermissionsByUser(authRule.getId(), authString);
+				permissionVo=new PermissionVo(authRule.getName(), firstRules);
+				lists.add(permissionVo);
 			}
 		}
      	MemberVo memberVo=new MemberVo();
      	memberVo.setUser(MemberVo.getSysuser());
-     	memberVo.setFirstRules(firstRules);
-     	memberVo.setSecondRules(secondRules);
-     	System.out.println(memberVo);
+     	memberVo.setRules(lists);
+
 		return memberVo;
 	}
 }

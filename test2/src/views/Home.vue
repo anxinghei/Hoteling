@@ -6,6 +6,7 @@
 
                 </div></el-col>
             <el-col :span="8">
+                <el-button>{{this.user}}</el-button>
                 <el-button  @click="logouting">退出</el-button>
             </el-col>
         </el-row>
@@ -14,13 +15,13 @@
 
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
 
-                <el-menu  :router="true" :default-active="$route.path">
-                    <el-submenu v-for="(item,index) in $router.options.routes" :index="item.path" v-if="item.show">
-                        <template slot="title">{{item.name}}</template>
-                        <el-menu-item v-for="(item2,index2) in item.children" :index="item2.path"
-                                      :class="$route.path==item2.path?'is-active':''">{{item2.name}}</el-menu-item>
-                        <!--            <el-menu-item index="/login" >登录</el-menu-item>-->
+                <el-menu  :router="true" :default-active="$route.path" v-for="(item,index) in this.rules">
+                    <el-submenu  index="/">
+                        <template slot="title" >{{item.name}}</template>
+                        <el-menu-item v-for="(item2,index2) in item.permissions"  :index="item2.url"
+                                      :class="$route.path==item2.url?'is-active':''" >{{item2.name}}</el-menu-item>
                     </el-submenu>
+
                 </el-menu>
 
             </el-aside>
@@ -54,16 +55,16 @@
 </style>
 
 <script>
+
+
     export default {
         data() {
-            const item = {
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            };
-            return {
-                tableData: Array(20).fill(item),
+            return{
+                user:'',
+                rules:[],
+                userId:0,
             }
+
         },
         methods:{
             logouting(){
@@ -76,9 +77,13 @@
             }
         },
         created() {
+            const _this=this
             axios.get('http://localhost:8181/sysuser/toHome').then(function(resp){
                 console.log('当前用户')
                 console.log(resp)
+                _this.user=resp.data.user.nickname
+                _this.rules=resp.data.rules
+                _this.userId=resp.data.user.id
             })
         }
     };
