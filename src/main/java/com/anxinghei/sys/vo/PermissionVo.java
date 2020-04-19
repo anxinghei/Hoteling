@@ -7,6 +7,7 @@ import com.anxinghei.sys.entity.Permission;
 public class PermissionVo {
 	
 	private String name;
+	private String url;
 	private List<Permission> permissions;
 	public String getName() {
 		return name;
@@ -20,11 +21,17 @@ public class PermissionVo {
 	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
 	}
-	public PermissionVo(String name, List<Permission> permissions) {
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public PermissionVo(String name, String url, List<Permission> permissions) {
 		super();
 		this.name = name;
+		this.url = url;
 		this.permissions = permissions;
 	}
-	
 	
 }

@@ -15,11 +15,11 @@
 
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
 
-                <el-menu  :router="true" :default-active="$route.path" v-for="(item,index) in this.rules">
-                    <el-submenu  index="/">
+                <el-menu  :router="true" default-active="this.activeUrl" v-for="(item,index) in this.rules">
+                    <el-submenu  :index="item.url">
                         <template slot="title" >{{item.name}}</template>
                         <el-menu-item v-for="(item2,index2) in item.permissions"  :index="item2.url"
-                                      :class="$route.path==item2.url?'is-active':''" >{{item2.name}}</el-menu-item>
+                                      @select="activeChange(item2.url)">{{item2.name}}</el-menu-item>
                     </el-submenu>
 
                 </el-menu>
@@ -63,6 +63,7 @@
                 user:'',
                 rules:[],
                 userId:0,
+                activeUrl:'/',
             }
 
         },
@@ -74,9 +75,21 @@
                         path: '/Login'
                     }).catch(err => {})
                 })
+            },
+            activeChange(url){
+                this.activeUrl=url
+                console.log(this.activeUrl)
             }
         },
         created() {
+            if (sessionStorage.getItem("activeUrl") ) {
+                this.$store.replaceState(Object.assign({}, this.activeUrl,sessionStorage.getItem("activeUrl")))
+            }
+            //在页面刷新时将vuex里的信息保存到sessionStorage里
+            window.addEventListener("beforeunload",()=>{
+                sessionStorage.setItem("activeUrl",this.activeUrl)
+            })
+            console.log(this.activeUrl)
             const _this=this
             axios.get('http://localhost:8181/sysuser/toHome').then(function(resp){
                 console.log('当前用户')

@@ -6,11 +6,18 @@ import com.anxinghei.sys.entity.Payment;
 import com.anxinghei.sys.mapper.PaymentMapper;
 import com.anxinghei.sys.mapper.PaymentVoMapper;
 import com.anxinghei.sys.util.DateUtils;
+import com.anxinghei.sys.util.DocumentHandler;
 import com.anxinghei.sys.vo.PaymentVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,5 +62,41 @@ public class PaymentController  {
 		paymentVo.setYearPayment(PaymentMapper.getListByTime(time).size());
 		paymentVo.setYearSum(PaymentMapper.getSumByTime(time)==null?0:PaymentMapper.getSumByTime(time));
 		return paymentVo;
+	}
+	
+	@RequestMapping("exportWord")
+	public String freemaker(HttpServletRequest req,HttpServletResponse resp) {
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+
+		String dateString=DateUtils.getDataforBook();
+		map.put("dating", dateString);
+		map.put("datting", dateString);
+
+		map.put("num", 1);
+		map.put("price", 1);
+
+		List<Map<String, Object>> paymentList=new ArrayList<Map<String,Object>>();
+		Map<String, Object> map2=new HashMap<String, Object>();
+		map2.put("room", 101);
+		map2.put("guest", "张三");
+		map2.put("amount", 200);
+		map2.put("date", 20200419);
+		paymentList.add(map2);
+		map2=new HashMap<String, Object>();
+		map2.put("room", 102);
+		map2.put("guest", "李四");
+		map2.put("amount", 300);
+		map2.put("date", 20200420);
+		paymentList.add(map2);
+
+		map.put("paymentList",paymentList);
+		
+		boolean b =new DocumentHandler().exportDoc("outer", "exportWord"+dateString, map, resp);
+		System.out.println(b);
+		if (b) {
+			return "success";
+		}
+		return "failed";
 	}
 }

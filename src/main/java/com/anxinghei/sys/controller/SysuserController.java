@@ -65,7 +65,7 @@ public class SysuserController  {
      		authRule=ruleService.selectByPrimaryKey(rulesInt[i]);
      		if (0==authRule.getPid()) {
 				firstRules=ruleService.getPermissionsByUser(authRule.getId(), authString);
-				permissionVo=new PermissionVo(authRule.getName(), firstRules);
+				permissionVo=new PermissionVo(authRule.getName(),authRule.getUrl(),firstRules);
 				lists.add(permissionVo);
 			}
 		}

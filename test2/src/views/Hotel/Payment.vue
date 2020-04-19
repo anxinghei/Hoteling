@@ -48,7 +48,7 @@
             </el-tab-pane>
 
             <el-tab-pane label="统计" name="total">
-                <el-form style="width: 60%"  ref="ruleForm" label-width="100px"
+                <el-form style="width: 60%"  ref="totalData" label-width="100px"
                          class="demo-ruleForm">
                     <el-form-item label="今日订单数" prop="dayPayment">
                         <el-input v-model="totalData.dayPayment" readonly></el-input>
@@ -70,6 +70,23 @@
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
+
+            <el-tab-pane label="数据导出" name="outer">
+                <el-form style="width: 60%"   label-width="100px"
+                         class="demo-ruleForm">
+                    <el-form-item ></el-form-item>
+                    <el-form-item >
+                        <el-button type="button" @click="nowday">下载今日数据报表</el-button>
+                    </el-form-item>
+                    <el-form-item >
+                        <el-button type="primary" >下载本月数据报表</el-button>
+                    </el-form-item>
+                    <el-form-item >
+                        <el-button type="success" >下载今年数据报表</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-tab-pane>
+
         </el-tabs>
     </div>
 </template>
@@ -100,6 +117,10 @@
                     _this.payedpageSize = resp.data.pageSize
                     _this.payedtotal = resp.data.total
                 })
+            },
+            nowday(){
+                const _this = this
+                window.open("http://localhost:8181/payment/exportWord","parent");
             },
         },
         created() {

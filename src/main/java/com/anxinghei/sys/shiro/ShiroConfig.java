@@ -48,21 +48,21 @@ public class ShiroConfig {
 		Map<String,String> filterMap = new LinkedHashMap<String,String>();
 		
 		//放行login.html页面
-		filterMap.put("/login", "anon");
-		filterMap.put("/logining", "anon");
-		filterMap.put("/getCode","anon");
-		//修改调整的登录页面
-		shiroFilterFactoryBean.setLoginUrl("/login");
-		// 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/toHome");
-       //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterMap.put("/logouting", "authc");
-        
-        //rememberMe 登录即可访问
-        filterMap.put("/toHome", "user");
+//		filterMap.put("/login", "anon");
+//		filterMap.put("/logining", "anon");
+//		filterMap.put("/getCode","anon");
+//		//修改调整的登录页面
+//		shiroFilterFactoryBean.setLoginUrl("/login");
+//		// 登录成功后要跳转的链接
+//        shiroFilterFactoryBean.setSuccessUrl("/toHome");
+//       //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
+//        filterMap.put("/logouting", "authc");
+//        
+//        //rememberMe 登录即可访问
+//        filterMap.put("/toHome", "user");
         
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-		filterMap.put("/*", "authc");
+		filterMap.put("/*", "anon");
 		//设置未授权提示页面
 //		shiroFilterFactoryBean.setUnauthorizedUrl("/noAuth");
 		

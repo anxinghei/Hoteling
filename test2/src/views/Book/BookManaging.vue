@@ -4,7 +4,7 @@
                 :data="tableData"
                 border
                 style="width: 51% "
-                :default-sort="{prop: 'endday', order: 'ascending'}">
+                :default-sort="{prop: 'roomNum', order: 'ascending'}">
             <el-table-column
                     prop="roomNum"
                     label="房间号"

@@ -19,6 +19,6 @@ public interface PaymentVoMapper {
 			+ "select payment.roomNum as roomNum,payment.guest as guestname,payment.amount as amount,payment.date as date,"
 			+ "oldbook.startDay as startday,oldbook.endDay as endday ,oldbook.guestId as guestid "  
 			+ "from payment,guest,oldbook " 
-			+  "where payment.date=oldbook.date and payment.roomNum=oldbook.roomId and oldbook.guestId =guest.id ")
+			+  "where payment.date=oldbook.date and payment.roomNum=oldbook.roomId and oldbook.guestId =guest.id order by date DESC")
 	List<PaymentVo> getPaymentVos();
 }
