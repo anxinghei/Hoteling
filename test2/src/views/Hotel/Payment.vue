@@ -79,10 +79,10 @@
                         <el-button type="button" @click="nowday">下载今日数据报表</el-button>
                     </el-form-item>
                     <el-form-item >
-                        <el-button type="primary" >下载本月数据报表</el-button>
+                        <el-button type="primary" @click="thisMonth">下载本月数据报表</el-button>
                     </el-form-item>
                     <el-form-item >
-                        <el-button type="success" >下载今年数据报表</el-button>
+                        <el-button type="success" @click="thisYear">下载今年数据报表</el-button>
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
@@ -120,7 +120,13 @@
             },
             nowday(){
                 const _this = this
-                window.open("http://localhost:8181/payment/exportWord","parent");
+                window.open("http://localhost:8181/payment/exportWordNowdays","parent");
+            },
+            thisMonth(){
+                window.open("http://localhost:8181/payment/exportWordThisMonth","parent");
+            },
+            thisYear(){
+                window.open("http://localhost:8181/payment/exportWordThisYear","parent");
             },
         },
         created() {
