@@ -16,10 +16,10 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="折扣" prop="discount" >
-                <el-input v-model="ruleForm.discount" ></el-input>
+                <el-input v-model="ruleForm.discount" v-bind:disabled="this.diasabledInput"></el-input>
             </el-form-item>
             <el-form-item label="说明" prop="description" >
-                <el-input v-model="ruleForm.description" ></el-input>
+                <el-input v-model="ruleForm.description" v-bind:disabled="this.diasabledInput"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
@@ -50,6 +50,7 @@
                     isbanded:1,
                     description:'',
                 },
+                diasabledInput:false,
                 rules: {
                     discount: [
                         {required: true, message: '折扣不能为空', trigger: 'blur'}
@@ -97,9 +98,11 @@
                         if (resp.data == 'success') {
                             _this.ruleForm.isbanded=0
                             _this.ruleForm.description=""
+                            _this.diasabledInput=false
                         }else {
                             _this.ruleForm.isbanded=1
                             _this.ruleForm.description="该房间类别在预定时间内已有折扣"
+                            _this.diasabledInput=true
                         }
                     })
                 }

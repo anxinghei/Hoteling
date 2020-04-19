@@ -1,4 +1,4 @@
-package com.anxinghei.sys.transction;
+package com.anxinghei.sys.serviceImpl;
 
 import java.util.List;
 
@@ -24,6 +24,8 @@ import com.anxinghei.sys.mapper.OldbookMapper;
 import com.anxinghei.sys.mapper.PaymentMapper;
 import com.anxinghei.sys.mapper.RoomMapper;
 import com.anxinghei.sys.mapper.TypeMapper;
+import com.anxinghei.sys.service.BandService;
+import com.anxinghei.sys.service.BookService;
 import com.anxinghei.sys.util.DateUtils;
 import com.anxinghei.sys.vo.BookVo;
 
@@ -39,7 +41,7 @@ public class BookServiceImpl implements BookService{
 	@Autowired
 	private GuestMapper guestMapper;
 	@Autowired
-	private BandMapper bandMapper;
+	private BandService bandService;
 	@Autowired
 	private TypeMapper typeMapper;
 	@Autowired
@@ -93,16 +95,7 @@ public class BookServiceImpl implements BookService{
 			guestMapper.insert(guest);
 		}
 		// 3，判定是否有折扣
-		Band record=new Band();
-		record.setTypeid(vo.getTypeid());
-		List<Band> bands=bandMapper.select(record);
-		int discount=100;
-		for (Band band : bands) {
-			if (vo.getStartday().substring(4).compareTo(band.getStartday())>=0 && vo.getEndday().substring(4).compareTo(band.getEndday())<=0) {
-				discount=band.getDiscount();
-				break;
-			}
-		}
+		int discount=bandService.getPriceForBooking(vo);
 		int price=typeMapper.selectByPrimaryKey(vo.getTypeid()).getPrice()*discount/100;
 		// 4，生成订单
 		Book book=new Book(vo.getRoom().getNum(),

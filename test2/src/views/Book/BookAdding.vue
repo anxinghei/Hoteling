@@ -162,7 +162,7 @@
                 }),
                     axios.post('http://localhost:8181/band/getPrice',this.ruleForm).then(function (resp) {
                         _this.lastPricce = resp.data
-                        console.log(_this.lastPricce )
+                        console.log("最终付款："+_this.lastPricce )
                     })
             },
             changeRoom(value){

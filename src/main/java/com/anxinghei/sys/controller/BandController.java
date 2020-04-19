@@ -1,20 +1,14 @@
 package com.anxinghei.sys.controller;
 
-//import com.github.wxiaoqi.security.common.rest.BaseController;
-//import com.anxinghei.sys.biz.BandBiz;
 import com.anxinghei.sys.entity.Band;
 import com.anxinghei.sys.entity.Type;
-import com.anxinghei.sys.mapper.BandMapper;
 import com.anxinghei.sys.mapper.BandVoMapper;
 import com.anxinghei.sys.mapper.TypeMapper;
-import com.anxinghei.sys.util.DateUtils;
+import com.anxinghei.sys.service.BandService;
 import com.anxinghei.sys.vo.BandVo;
 import com.anxinghei.sys.vo.BookVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
-import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.entity.Example.Criteria;
 
 import java.util.List;
 
@@ -29,18 +23,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-// extends BaseController<BandBiz,Band>
 
 @RestController
 @RequestMapping("band")
 public class BandController  {
 
 	@Autowired
-	private BandMapper bandMapper;
-	@Autowired
 	private BandVoMapper bandVoMapper;
 	@Autowired
 	private TypeMapper typeMapper;
+	@Autowired
+	private BandService bandService;
 
 	@GetMapping("findAll/{start}/{size}")
 	PageInfo<BandVo> findAll(@PathVariable("start") Integer start,@PathVariable("size") Integer size){
@@ -52,7 +45,7 @@ public class BandController  {
 	
 	@DeleteMapping("deleteById/{id}")
 	public void deleteById(@PathVariable("id")Integer id) {
-		bandMapper.deleteByPrimaryKey(id);
+		bandService.deleteByPrimaryKey(id);
 	}
 	
 	@PostMapping("isBanded")
@@ -61,7 +54,7 @@ public class BandController  {
 		// 查找所有同类别的折扣
 		Band band=new Band();
 		band.setTypeid(bandVo.getTypeid());
-		List<Band> bands=bandMapper.select(band);
+		List<Band> bands=bandService.selectList(band);
 		// 判定是否是包含关系
 		for (Band band2 : bands) {
 			if ((bandVo.getStartday().compareTo(band2.getStartday())>=0 && bandVo.getEndday().compareTo(band2.getEndday())<=0)) {
@@ -81,7 +74,7 @@ public class BandController  {
 		if (bandVo.getDescription()!=null) {
 			band.setDescription(bandVo.getDescription());
 		}
-		int isOK=bandMapper.insert(band);
+		int isOK=bandService.insertSelective(band);
 		if (isOK==1) {
 			return "success";
 		}
@@ -90,16 +83,7 @@ public class BandController  {
 	
 	@PostMapping("getPrice")
 	public int getPrice(@RequestBody BookVo vo) {
-		Band record=new Band();
-		record.setTypeid(vo.getTypeid());
-		List<Band> bands=bandMapper.select(record);
-		int discount=100;
-		for (Band band : bands) {
-			if (vo.getStartday().substring(4).compareTo(band.getStartday())>=0 && vo.getEndday().substring(4).compareTo(band.getEndday())<=0) {
-				discount=band.getDiscount();
-				break;
-			}
-		}
+		int discount=bandService.getPriceForBooking(vo);
 		Type type=typeMapper.selectByPrimaryKey(vo.getTypeid());
 		return type.getPrice()*discount/100;
 	}
