@@ -3,8 +3,8 @@ package com.anxinghei.sys.controller;
 import com.anxinghei.sys.entity.Band;
 import com.anxinghei.sys.entity.Type;
 import com.anxinghei.sys.mapper.BandVoMapper;
-import com.anxinghei.sys.mapper.TypeMapper;
 import com.anxinghei.sys.service.BandService;
+import com.anxinghei.sys.service.TypeService;
 import com.anxinghei.sys.vo.BandVo;
 import com.anxinghei.sys.vo.BookVo;
 import com.github.pagehelper.PageHelper;
@@ -13,14 +13,12 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -31,7 +29,7 @@ public class BandController  {
 	@Autowired
 	private BandVoMapper bandVoMapper;
 	@Autowired
-	private TypeMapper typeMapper;
+	private TypeService typeService;
 	@Autowired
 	private BandService bandService;
 
@@ -84,7 +82,7 @@ public class BandController  {
 	@PostMapping("getPrice")
 	public int getPrice(@RequestBody BookVo vo) {
 		int discount=bandService.getPriceForBooking(vo);
-		Type type=typeMapper.selectByPrimaryKey(vo.getTypeid());
+		Type type=typeService.selectByPrimaryKey(vo.getTypeid());
 		return type.getPrice()*discount/100;
 	}
 }
