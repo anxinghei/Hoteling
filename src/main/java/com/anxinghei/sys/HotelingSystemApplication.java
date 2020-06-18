@@ -14,7 +14,11 @@ import tk.mybatis.spring.annotation.MapperScan;
 public class HotelingSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HotelingSystemApplication.class, args);
+		try {
+			SpringApplication.run(HotelingSystemApplication.class, args);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }
